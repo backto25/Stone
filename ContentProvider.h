@@ -1,0 +1,43 @@
+/*  *****************************************************
+*****************************************************  */
+#ifndef CONTENT_H
+#define CONTENT_H
+
+#include <QMutex>
+#include <QSharedPointer>
+
+#include "StaffModel.h"
+/*  *****************************************************
+*****************************************************  */
+class ContentProvider{
+  private:
+    ContentProvider(){}
+    ContentProvider(const ContentProvider &){}
+    ContentProvider& operator=(const ContentProvider&){}
+
+    static QMutex m_Mutex;
+    static QSharedPointer<ContentProvider> Qptr_contentProvider;
+
+  public:
+    static StaffModel staff_model;
+
+    static QSharedPointer<ContentProvider>& getContentProvider(){
+
+      if(Qptr_contentProvider.isNull()){
+          QMutexLocker mutexLocker(&m_Mutex);
+          if(Qptr_contentProvider.isNull()){
+              Qptr_contentProvider = QSharedPointer<ContentProvider>(new ContentProvider());
+          }
+      }
+      return Qptr_contentProvider;
+    }
+
+};
+
+QMutex ContentProvider::m_Mutex;
+QSharedPointer<ContentProvider> ContentProvider::Qptr_contentProvider;
+
+StaffModel ContentProvider::staff_model;
+/*  *****************************************************
+*****************************************************  */
+#endif
