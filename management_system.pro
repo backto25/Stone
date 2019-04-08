@@ -16,14 +16,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     newgroup.cpp \
     databox.cpp \
-    StaffModel.cpp
+    StaffModel.cpp \
+    GroupModel.cpp \
+    ComputerModel.cpp
 
 HEADERS  += mainwindow.h \
     newgroup.h \
     structbox.h \
     databox.h \
     ContentProvider.h \
-    StaffModel.h
+    StaffModel.h \
+    GroupModel.h \
+    ComputerModel.h
 
 FORMS    += mainwindow.ui \
     newgroup.ui
