@@ -28,8 +28,8 @@ bool connectDB()
 
     if(!dataBase.open())
     {
-      QMessageBox::warning(NULL, "错误", dataBase.lastError().text());
-      return false;
+        QMessageBox::warning(NULL, "错误", dataBase.lastError().text());
+        return false;
     }
     return true;
 }

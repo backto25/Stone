@@ -9,7 +9,7 @@
 /*  *****************************************************
 *****************************************************  */
 class Staff{
-  public:
+public:
     int staff_id;
     QString staff_name;
 };
@@ -17,10 +17,10 @@ class Staff{
 ************************************  */
 class StaffModel : public QAbstractTableModel{
     Q_OBJECT
-  private:
+private:
     QVector<Staff> staffs;
 
-  public:
+public:
     static const int DIM = 2;
 
     StaffModel(QObject *parent = 0);
@@ -37,6 +37,7 @@ class StaffModel : public QAbstractTableModel{
     int size()const;
 
     bool flashBySQL();
+    bool saveToDB();
 };
 /*  ************************************
 ************************************  */

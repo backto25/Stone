@@ -12,7 +12,7 @@
 /*  *****************************************************
 *****************************************************  */
 class Group{
-  public:
+public:
 
     int group_id;
     int group_type;
@@ -20,15 +20,20 @@ class Group{
 
     QVector<int> staffs;
     QVector<int> computers;
+
+public:
+
+    bool isStaffIncluded(int staffId);
+    bool isComputerIncluded(int computerId);
 };
 /*  ************************************
 ************************************  */
 class GroupModel : public QAbstractTableModel{
     Q_OBJECT
-  private:
+private:
     QVector<Group> groups;
 
-  public:
+public:
     static const int DIM = 5;
 
     GroupModel(QObject *parent = 0);
@@ -46,6 +51,7 @@ class GroupModel : public QAbstractTableModel{
     int size()const;
 
     bool flashBySQL();
+    bool saveToDB();
 };
 /*  ************************************
 ************************************  */

@@ -30,7 +30,7 @@ private:
     Ui::MainWindow *ui;
     NewGroup *newGroupDialog;
     QList<QToolButton*> *pcList;
-//    Databox *databox;
+    //    Databox *databox;
 };
 
 #endif // MAINWINDOW_H

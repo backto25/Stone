@@ -4,26 +4,33 @@
 #include <QSqlQuery>
 #include <QDebug>
 /*  ************************************
-class Computer
+class Group
 ************************************  */
-//
+bool Group::isStaffIncluded(int staffId){
+    return staffs.contains(staffId);
+}
+
+bool Group::isComputerIncluded(int computerId){
+    return computers.contains(computerId);
+}
+
 /*  ************************************
-class ComputerModel
+class GroupModel
 ************************************  */
 int GroupModel::findIndexById(int id){
-  QVector<Group>::iterator it;
-  bool find = false;
-  int i = 0;
-  for( it=groups.begin(); it != groups.end(); ++it){
-    if( it->group_id == id){
-      find = true;
-      break;
+    QVector<Group>::iterator it;
+    bool find = false;
+    int i = 0;
+    for( it=groups.begin(); it != groups.end(); ++it){
+        if( it->group_id == id){
+            find = true;
+            break;
+        }
+        ++i;
     }
-    ++i;
-  }
-  if(find)
-    return i;
-  return -1;
+    if(find)
+        return i;
+    return -1;
 }
 
 Group GroupModel::getGroupByIndex(int index)const{
@@ -31,16 +38,16 @@ Group GroupModel::getGroupByIndex(int index)const{
 }
 
 QVector<int> GroupModel::findByType(int type){
-  QVector<int> ret;
-  QVector<Group>::iterator it;
-  int i = 0;
-  for( it=groups.begin(); it != groups.end(); ++it){
-    if( it->group_type == type){
-      ret.push_back(i);
+    QVector<int> ret;
+    QVector<Group>::iterator it;
+    int i = 0;
+    for( it=groups.begin(); it != groups.end(); ++it){
+        if( it->group_type == type){
+            ret.push_back(i);
+        }
+        ++i;
     }
-    ++i;
-  }
-  return ret;
+    return ret;
 }
 
 bool GroupModel::addOneGroup(Group group){
@@ -57,17 +64,17 @@ int GroupModel::size() const
 { return groups.size();}
 
 bool GroupModel::flashBySQL(){
-  groups.clear();
-  QSqlQuery sqlQueryGroup;
-  QSqlQuery sqlQueryGroupStaff;
-  QSqlQuery sqlQueryGroupPC;
+    groups.clear();
+    QSqlQuery sqlQueryGroup;
+    QSqlQuery sqlQueryGroupStaff;
+    QSqlQuery sqlQueryGroupPC;
 
-  Group temp;
+    Group temp;
     sqlQueryGroup.prepare( "select group_id, group_name from group" );
-  if(!sqlQueryGroup.exec())
-      return false;
+    if(!sqlQueryGroup.exec())
+        return false;
 
-  for(int i = 0; i < sqlQueryGroup.size(); i++){
+    for(int i = 0; i < sqlQueryGroup.size(); i++){
         sqlQueryGroup.next();
         temp.group_id = sqlQueryGroup.value(0).toInt();
         temp.group_name = sqlQueryGroup.value(1).toString();
@@ -76,36 +83,41 @@ bool GroupModel::flashBySQL(){
         if(!sqlQueryGroupStaff.exec())
             return false;
         for(int i = 0; i < sqlQueryGroupStaff.size(); i++){
-              sqlQueryGroupStaff.next();
-              temp.staffs.push_back(sqlQueryGroupStaff.value(0).toInt());
+            sqlQueryGroupStaff.next();
+            temp.staffs.push_back(sqlQueryGroupStaff.value(0).toInt());
         }
 
         sqlQueryGroupPC.prepare(QString( "select pc_id from group_pc where group_id = %1" ).arg(temp.group_id));
         if(!sqlQueryGroupPC.exec())
             return false;
         for(int i = 0; i < sqlQueryGroupPC.size(); i++){
-              sqlQueryGroupPC.next();
-              temp.computers.push_back(sqlQueryGroupPC.value(0).toInt());
+            sqlQueryGroupPC.next();
+            temp.computers.push_back(sqlQueryGroupPC.value(0).toInt());
         }
         addOneGroup(temp);
-  }
-  return true;
+    }
+    return true;
 }
+
+bool GroupModel::saveToDB(){
+    return true;
+}
+
 /*  ************************************
 class ComputerModel for QAbstractTableModel
 ************************************  */
 GroupModel::GroupModel(QObject *parent) :QAbstractTableModel(parent){
-  // set users from content ContentProvider
-  groups.clear();
+    // set users from content ContentProvider
+    groups.clear();
 }
 
 GroupModel::~GroupModel(){
-  // set users from content ContentProvider
-  groups.clear();
+    // set users from content ContentProvider
+    groups.clear();
 }
 
 int	GroupModel::rowCount(const QModelIndex & paren) const{
-  return this->size();
+    return this->size();
 }
 
 int	GroupModel::columnCount(const QModelIndex & parent) const{
@@ -113,22 +125,24 @@ int	GroupModel::columnCount(const QModelIndex & parent) const{
 }
 QVariant GroupModel::data(const QModelIndex & index, int role) const{
 
-  if (!index.isValid()) return QVariant();
+    if (!index.isValid()) return QVariant();
 
-  int nRow = index.row();
-  int nCol = index.column();
-  Group group = this->getGroupByIndex(nRow);
+    int nRow = index.row();
+    int nCol = index.column();
+    Group group = this->getGroupByIndex(nRow);
 
-  if (Qt::DisplayRole == role){
-    switch (nCol) {
-      case 1:
-        return group.group_id;
-      case 2:
-        return group.group_name;
-      default:
-        return QVariant();
+    if (Qt::DisplayRole == role){
+        switch (nCol) {
+        case 1:
+            return group.group_id;
+        case 2:
+            return group.group_name;
+        default:
+            return QVariant();
+        }
     }
-  }
 
-  return QVariant();
+    return QVariant();
 }
+
+
