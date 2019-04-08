@@ -18,8 +18,8 @@ class Group{
     int group_type;
     QString group_name;
 
-    QVector<Staff> staffs;
-    QVector<Computer> computers;
+    QVector<int> staffs;
+    QVector<int> computers;
 };
 /*  ************************************
 ************************************  */

@@ -15,15 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     newgroup.cpp \
-    databox.cpp \
     StaffModel.cpp \
     GroupModel.cpp \
     ComputerModel.cpp
 
 HEADERS  += mainwindow.h \
     newgroup.h \
-    structbox.h \
-    databox.h \
     ContentProvider.h \
     StaffModel.h \
     GroupModel.h \

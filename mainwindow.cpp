@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButtonAddGroup_clicked()
 {
     QSqlQuery sqlQueryGroups;
-    QString sqlStr = "select group_id, group_name from groups";
+    QString sqlStr = "select group_id, group_name from group";
     sqlQueryGroups.prepare( sqlStr );
     sqlQueryGroups.exec();
 //        qDebug()<<sqlQueryGroups.size()<<endl;
@@ -63,7 +63,7 @@ bool MainWindow::updateGroupList()
      * 初始化listWidgetGroups
     *****************************************************  */
     QSqlQuery sqlQueryGroups;
-    QString sqlStr = "select group_id, group_name from groups";
+    QString sqlStr = "select group_id, group_name from group";
     sqlQueryGroups.prepare( sqlStr );
 
     if( sqlQueryGroups.exec() )

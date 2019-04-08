@@ -7,6 +7,8 @@
 #include <QSharedPointer>
 
 #include "StaffModel.h"
+#include "ComputerModel.h"
+#include "GroupModel.h"
 /*  *****************************************************
 *****************************************************  */
 class ContentProvider{
@@ -20,6 +22,8 @@ class ContentProvider{
 
   public:
     static StaffModel staff_model;
+    static ComputerModel computer_model;
+    static GroupModel group_model;
 
     static QSharedPointer<ContentProvider>& getContentProvider(){
 

@@ -58,7 +58,37 @@ int GroupModel::size() const
 
 bool GroupModel::flashBySQL(){
   groups.clear();
+  QSqlQuery sqlQueryGroup;
+  QSqlQuery sqlQueryGroupStaff;
+  QSqlQuery sqlQueryGroupPC;
 
+  Group temp;
+    sqlQueryGroup.prepare( "select group_id, group_name from group" );
+  if(!sqlQueryGroup.exec())
+      return false;
+
+  for(int i = 0; i < sqlQueryGroup.size(); i++){
+        sqlQueryGroup.next();
+        temp.group_id = sqlQueryGroup.value(0).toInt();
+        temp.group_name = sqlQueryGroup.value(1).toString();
+
+        sqlQueryGroupStaff.prepare(QString( "select staff_id from group_staff where group_id = %1" ).arg(temp.group_id));
+        if(!sqlQueryGroupStaff.exec())
+            return false;
+        for(int i = 0; i < sqlQueryGroupStaff.size(); i++){
+              sqlQueryGroupStaff.next();
+              temp.staffs.push_back(sqlQueryGroupStaff.value(0).toInt());
+        }
+
+        sqlQueryGroupPC.prepare(QString( "select pc_id from group_pc where group_id = %1" ).arg(temp.group_id));
+        if(!sqlQueryGroupPC.exec())
+            return false;
+        for(int i = 0; i < sqlQueryGroupPC.size(); i++){
+              sqlQueryGroupPC.next();
+              temp.computers.push_back(sqlQueryGroupPC.value(0).toInt());
+        }
+        addOneGroup(temp);
+  }
   return true;
 }
 /*  ************************************

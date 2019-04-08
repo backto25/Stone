@@ -7,14 +7,12 @@ NewGroup::NewGroup(QWidget *parent) :
     ui(new Ui::NewGroup)
 {
     ui->setupUi(this);
-    Databox *databox = new Databox();
     initStaffList();
 }
 
 NewGroup::~NewGroup()
 {
     delete ui;
-    delete databox;
 }
 bool NewGroup::initStaffList()
 {

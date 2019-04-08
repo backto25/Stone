@@ -1,7 +1,16 @@
 #ifndef NEWGROUP_H
 #define NEWGROUP_H
 
-#include "databox.h"
+#include <QObject>
+#include <QWidget>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include<QMessageBox>
+#include<QSqlQuery>
+#include<QDebug>
+#include <QHBoxLayout>
+#include <QListWidgetItem>
+#include <QToolButton>
 
 namespace Ui {
 class NewGroup;
@@ -27,7 +36,6 @@ signals:
 
 private:
     Ui::NewGroup *ui;
-    Databox *databox;
 };
 
 #endif // NEWGROUP_H
