@@ -35,10 +35,10 @@ extern QSharedPointer<ContentProvider> contentProvider;
 /*  *****************************************************
 *****************************************************  */
 static QString ColorSetA[5] = {
+    "background-color: rgba(255, 255, 0, 100);",
     "background-color: rgba(255, 0, 0, 100);",
+    "background-color: rgba(255, 153, 0, 100);",
+    "background-color: rgba(0, 255, 255, 100);",
     "background-color: rgba(0, 255, 0, 100);",
-    "background-color: rgba(0, 0, 255, 100);",
-    "background-color: rgba(255, 0, 0, 100);",
-    "background-color: rgba(255, 0, 0, 100);",
 }    ;
 #endif

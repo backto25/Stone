@@ -27,14 +27,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonAddGroup_clicked()
 {
-    QSqlQuery sqlQueryGroups;
-    QString sqlStr = "select group_id, group_name from group";
-    sqlQueryGroups.prepare( sqlStr );
-    sqlQueryGroups.exec();
-    //        qDebug()<<sqlQueryGroups.size()<<endl;
-
+    GroupModel &groupModel = contentProvider->group_model;
     newGroupDialog = new NewGroup(NULL);
-    newGroupDialog->setWindowTitle(QString("%1组").arg(sqlQueryGroups.size()));//更新title
+    newGroupDialog->setWindowTitle(QString("%1组").arg(groupModel.size() + 1 ));//更新title
 
     newGroupDialog->show();
 }
@@ -62,44 +57,29 @@ bool MainWindow::updateGroupList()
     /*  *****************************************************
      * 初始化listWidgetGroups
     *****************************************************  */
-    QSqlQuery sqlQueryGroups;
-    QString sqlStr = "select group_id, group_name from `group`";
-    sqlQueryGroups.prepare( sqlStr );
+    GroupModel &groupModel = contentProvider->group_model;
 
-    if( sqlQueryGroups.exec() )
+    for(int i = 0; i < groupModel.size(); ++i)
     {
-        //        qDebug()<<"查询groups成功"<<endl;
-        //            qDebug()<<sqlQuery.value(1).toString()<<endl;
-        while( sqlQueryGroups.next() )
-        {
-            //自定义控件
-            QWidget *widgetGroup = new QWidget();
-            widgetGroup->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
-            QHBoxLayout *layout = new QHBoxLayout(widgetGroup);
-            QLabel *groupName = new QLabel();
-            QPushButton *btnProgressOn = new QPushButton();
-            btnProgressOn->setStyleSheet("background-color: rgba(235, 235, 235, 150);");
-            layout->addWidget(groupName);
-            layout->addWidget(btnProgressOn);
-            groupName->setText(sqlQueryGroups.value(1).toString());
-            switch(sqlQueryGroups.value(0).toInt())
-            {
-            case 0:break;//未分组的电脑不处理
-            case 1:groupName->setStyleSheet("background-color: rgba(255, 0, 0, 100);");break;
-            case 2:groupName->setStyleSheet("background-color: rgba(255, 153, 0, 100);");break;
-            case 3:groupName->setStyleSheet("background-color: rgba(0, 255, 255, 100);");break;
-            case 4:groupName->setStyleSheet("background-color: rgba(0, 255, 0, 100);");break;
-            case 5:groupName->setStyleSheet("background-color: rgba(255, 255, 0, 100);");break;
-            }
-            btnProgressOn->setText(tr("开始训练"));
-            widgetGroup->setLayout(layout);
+        //自定义控件
+        QWidget *widgetGroup = new QWidget();
+        widgetGroup->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+        QHBoxLayout *layout = new QHBoxLayout(widgetGroup);
+        QLabel *groupName = new QLabel();
+        QPushButton *btnProgressOn = new QPushButton();
+        btnProgressOn->setStyleSheet("background-color: rgba(235, 235, 235, 150);");
+        layout->addWidget(groupName);
+        layout->addWidget(btnProgressOn);
+        groupName->setText(groupModel.getGroupByIndex(i).group_name);
+        groupName->setStyleSheet(ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);
+        btnProgressOn->setText(tr("开始训练"));
+        widgetGroup->setLayout(layout);
 
-            //插入表项
-            QListWidgetItem *aItem = new QListWidgetItem(ui->listWidgetGroups);
-            ui->listWidgetGroups->addItem(aItem);
-            ui->listWidgetGroups->setItemWidget(aItem, widgetGroup);
-            aItem->setSizeHint(QSize(0,50));
-        }
+        //插入表项
+        QListWidgetItem *aItem = new QListWidgetItem(ui->listWidgetGroups);
+        ui->listWidgetGroups->addItem(aItem);
+        ui->listWidgetGroups->setItemWidget(aItem, widgetGroup);
+        aItem->setSizeHint(QSize(0,50));
     }
     return true;
 }
@@ -107,7 +87,7 @@ bool MainWindow::updateGroupList()
 bool MainWindow::updatePcView()
 {
     GroupModel &groupModel =contentProvider->group_model;
-   ComputerModel &computerModel =contentProvider->computer_model;
+    ComputerModel &computerModel =contentProvider->computer_model;
 
     for(int i = 0; i < groupModel.size(); ++i)
     {
@@ -117,31 +97,11 @@ bool MainWindow::updatePcView()
         for(int j = 0; j < temp.size(); ++j){
             if(computerModel.findIndexById(temp[j]) != -1) {
                 pcTemp=computerModel.getComputerByIndex(computerModel.findIndexById(temp[j]));
-                pcList->at(pcTemp.computer_id-1)->setStyleSheet(ColorSetA[i%5]);
-           }
+                pcList->at(pcTemp.computer_id-1)->setStyleSheet(
+                            ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);
+            }
         }
-
-
     }
-
-
-
-//    if( 0 )
-//    {
-//        //        qDebug()<<"查询pc成功"<<endl;
-//        while( 0 )
-//        {
-//            switch(sqlQueryPc.value(2).toInt())
-//            {
-//            case 0:break;//未分组的电脑不处理
-//            case 1:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 0, 0, 100);");break;
-//            case 2:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 153, 0, 100);");break;
-//            case 3:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(0, 255, 255, 100);");break;
-//            case 4:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(0, 255, 0, 100);");break;
-//            case 5:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 255, 0, 100);");break;
-//            }
-//        }
-//    }
 }
 
 bool MainWindow::initUI()
