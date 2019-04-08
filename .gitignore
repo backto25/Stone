@@ -1,0 +1,4 @@
+# git ignore
+
+*.pro.user
+*.autosave
