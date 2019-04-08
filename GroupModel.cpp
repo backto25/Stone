@@ -70,7 +70,7 @@ bool GroupModel::flashBySQL(){
     QSqlQuery sqlQueryGroupPC;
 
     Group temp;
-    sqlQueryGroup.prepare( "select group_id, group_name from group" );
+    sqlQueryGroup.prepare( "select group_id, group_name from `group`" );
     if(!sqlQueryGroup.exec())
         return false;
 

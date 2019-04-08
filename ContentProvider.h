@@ -25,16 +25,8 @@ public:
     static ComputerModel computer_model;
     static GroupModel group_model;
 
-    static QSharedPointer<ContentProvider>& getContentProvider(){
-
-        if(Qptr_contentProvider.isNull()){
-            QMutexLocker mutexLocker(&m_Mutex);
-            if(Qptr_contentProvider.isNull()){
-                Qptr_contentProvider = QSharedPointer<ContentProvider>(new ContentProvider());
-            }
-        }
-        return Qptr_contentProvider;
-    }
+    static QSharedPointer<ContentProvider>& getContentProvider();
+    static bool flashAllBySQL();
 
 };
 /*  *****************************************************
@@ -42,4 +34,11 @@ public:
 extern QSharedPointer<ContentProvider> contentProvider;
 /*  *****************************************************
 *****************************************************  */
+static QString ColorSetA[5] = {
+    "background-color: rgba(255, 0, 0, 100);",
+    "background-color: rgba(0, 255, 0, 100);",
+    "background-color: rgba(0, 0, 255, 100);",
+    "background-color: rgba(255, 0, 0, 100);",
+    "background-color: rgba(255, 0, 0, 100);",
+}    ;
 #endif

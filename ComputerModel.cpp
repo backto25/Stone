@@ -45,7 +45,20 @@ int ComputerModel::size() const
 
 bool ComputerModel::flashBySQL(){
     computers.clear();
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare( "select pc_id from pc" );
+    Computer temp;
 
+    if(!sqlQuery.exec())
+        return false;
+
+    for(int i = 0; i < sqlQuery.size(); i++){
+
+        temp.computer_id = sqlQuery.value(0).toInt();
+        addOneComputer(temp);
+
+        sqlQuery.next();
+    }
     return true;
 }
 /*  ************************************

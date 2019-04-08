@@ -63,7 +63,7 @@ bool MainWindow::updateGroupList()
      * 初始化listWidgetGroups
     *****************************************************  */
     QSqlQuery sqlQueryGroups;
-    QString sqlStr = "select group_id, group_name from group";
+    QString sqlStr = "select group_id, group_name from `group`";
     sqlQueryGroups.prepare( sqlStr );
 
     if( sqlQueryGroups.exec() )
@@ -108,17 +108,16 @@ bool MainWindow::updatePcView()
 {
     GroupModel &groupModel =contentProvider->group_model;
    ComputerModel &computerModel =contentProvider->computer_model;
-    StaffModel &staffModel =contentProvider->staff_model;
 
-    groupModel.flashBySQL();
     for(int i = 0; i < groupModel.size(); ++i)
     {
         QVector<int> temp = groupModel.getGroupByIndex(i).computers;
+        qDebug()<<"temp.size()"<<temp.size();
         Computer pcTemp;
         for(int j = 0; j < temp.size(); ++j){
             if(computerModel.findIndexById(temp[j]) != -1) {
                 pcTemp=computerModel.getComputerByIndex(computerModel.findIndexById(temp[j]));
-
+                pcList->at(pcTemp.computer_id-1)->setStyleSheet(ColorSetA[i%5]);
            }
         }
 
