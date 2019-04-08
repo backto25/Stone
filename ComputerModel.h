@@ -9,7 +9,7 @@
 /*  *****************************************************
 *****************************************************  */
 class Computer{
-  public:
+public:
     int computer_id;
     QString computer_name;
 };
@@ -17,10 +17,10 @@ class Computer{
 ************************************  */
 class ComputerModel : public QAbstractTableModel{
     Q_OBJECT
-  private:
+private:
     QVector<Computer> computers;
 
-  public:
+public:
     static const int DIM = 2;
 
     ComputerModel(QObject *parent = 0);
@@ -37,6 +37,7 @@ class ComputerModel : public QAbstractTableModel{
     int size()const;
 
     bool flashBySQL();
+    bool saveToDB();
 };
 /*  ************************************
 ************************************  */
