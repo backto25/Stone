@@ -20,6 +20,11 @@ public:
 
     QVector<int> staffs;
     QVector<int> computers;
+
+public:
+
+    bool isStaffIncluded(int staffId);
+    bool isComputerIncluded(int computerId);
 };
 /*  ************************************
 ************************************  */
@@ -46,6 +51,7 @@ public:
     int size()const;
 
     bool flashBySQL();
+    bool saveToDB();
 };
 /*  ************************************
 ************************************  */

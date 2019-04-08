@@ -103,3 +103,7 @@ QVariant StaffModel::data(const QModelIndex & index, int role) const{
 
     return QVariant();
 }
+
+bool StaffModel::saveToDB(){
+    return true;
+}

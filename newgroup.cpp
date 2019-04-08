@@ -1,6 +1,5 @@
 #include "newgroup.h"
 #include "ui_newgroup.h"
-#include "ContentProvider.h"
 
 NewGroup::NewGroup(QWidget *parent) :
     QWidget(parent),
@@ -21,7 +20,7 @@ bool NewGroup::initStaffList()
     sqlQueryStaff.prepare( sqlStr );
 
 
-    StaffModel &smod =ContentProvider::getContentProvider()->staff_model;
+    StaffModel &smod =contentProvider.staff_model;
     smod.flashBySQL();
     qDebug()<<"xxxxxxxxx    ";
     qDebug()<<smod.size();

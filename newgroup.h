@@ -11,6 +11,7 @@
 #include <QHBoxLayout>
 #include <QListWidgetItem>
 #include <QToolButton>
+#include "ContentProvider.h"
 
 namespace Ui {
 class NewGroup;

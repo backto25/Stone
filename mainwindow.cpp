@@ -106,27 +106,43 @@ bool MainWindow::updateGroupList()
 
 bool MainWindow::updatePcView()
 {
-    QSqlQuery sqlQueryPc;
-    QString sqlStr = "select pc_id, pc_staff_id, pc_group_id from pc";
-    sqlQueryPc.prepare( sqlStr );
+    GroupModel &groupModel =contentProvider.group_model;
+   ComputerModel &computerModel =contentProvider.computer_model;
+    StaffModel &staffModel =contentProvider.staff_model;
 
-    if( sqlQueryPc.exec() )
+    groupModel.flashBySQL();
+    for(int i = 0; i < groupModel.size(); ++i)
     {
-        //        qDebug()<<"查询pc成功"<<endl;
-        while( sqlQueryPc.next() )
-        {
-            int indexOfPc = sqlQueryPc.value(0).toInt()-1;//不同组不同颜色表示
-            switch(sqlQueryPc.value(2).toInt())
-            {
-            case 0:break;//未分组的电脑不处理
-            case 1:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 0, 0, 100);");break;
-            case 2:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 153, 0, 100);");break;
-            case 3:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(0, 255, 255, 100);");break;
-            case 4:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(0, 255, 0, 100);");break;
-            case 5:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 255, 0, 100);");break;
-            }
+        QVector<int> temp = groupModel.getGroupByIndex(i).computers;
+        Computer pcTemp;
+        for(int j = 0; j < temp.size(); ++j){
+            if(computerModel.findIndexById(temp[j]) != -1) {
+                pcTemp=computerModel.getComputerByIndex(computerModel.findIndexById(temp[j]));
+
+           }
         }
+
+
     }
+
+
+
+//    if( 0 )
+//    {
+//        //        qDebug()<<"查询pc成功"<<endl;
+//        while( 0 )
+//        {
+//            switch(sqlQueryPc.value(2).toInt())
+//            {
+//            case 0:break;//未分组的电脑不处理
+//            case 1:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 0, 0, 100);");break;
+//            case 2:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 153, 0, 100);");break;
+//            case 3:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(0, 255, 255, 100);");break;
+//            case 4:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(0, 255, 0, 100);");break;
+//            case 5:pcList->at(indexOfPc)->setStyleSheet("background-color: rgba(255, 255, 0, 100);");break;
+//            }
+//        }
+//    }
 }
 
 bool MainWindow::initUI()

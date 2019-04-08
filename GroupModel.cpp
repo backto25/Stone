@@ -4,11 +4,18 @@
 #include <QSqlQuery>
 #include <QDebug>
 /*  ************************************
-class Computer
+class Group
 ************************************  */
-//
+bool Group::isStaffIncluded(int staffId){
+    return staffs.contains(staffId);
+}
+
+bool Group::isComputerIncluded(int computerId){
+    return computers.contains(computerId);
+}
+
 /*  ************************************
-class ComputerModel
+class GroupModel
 ************************************  */
 int GroupModel::findIndexById(int id){
     QVector<Group>::iterator it;
@@ -91,6 +98,11 @@ bool GroupModel::flashBySQL(){
     }
     return true;
 }
+
+bool GroupModel::saveToDB(){
+    return true;
+}
+
 /*  ************************************
 class ComputerModel for QAbstractTableModel
 ************************************  */
@@ -132,3 +144,5 @@ QVariant GroupModel::data(const QModelIndex & index, int role) const{
 
     return QVariant();
 }
+
+

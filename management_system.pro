@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     newgroup.cpp \
     StaffModel.cpp \
     GroupModel.cpp \
-    ComputerModel.cpp
+    ComputerModel.cpp \
+    ContentProvider.cpp
 
 HEADERS  += mainwindow.h \
     newgroup.h \

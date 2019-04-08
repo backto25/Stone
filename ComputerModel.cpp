@@ -89,3 +89,7 @@ QVariant ComputerModel::data(const QModelIndex & index, int role) const{
 
     return QVariant();
 }
+
+bool ComputerModel::saveToDB(){
+    return true;
+}
