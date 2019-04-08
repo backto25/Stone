@@ -12,7 +12,7 @@
 /*  *****************************************************
 *****************************************************  */
 class Group{
-  public:
+public:
 
     int group_id;
     int group_type;
@@ -25,10 +25,10 @@ class Group{
 ************************************  */
 class GroupModel : public QAbstractTableModel{
     Q_OBJECT
-  private:
+private:
     QVector<Group> groups;
 
-  public:
+public:
     static const int DIM = 5;
 
     GroupModel(QObject *parent = 0);

@@ -12,7 +12,7 @@
 /*  *****************************************************
 *****************************************************  */
 class ContentProvider{
-  private:
+private:
     ContentProvider(){}
     ContentProvider(const ContentProvider &){}
     ContentProvider& operator=(const ContentProvider&){}
@@ -20,20 +20,20 @@ class ContentProvider{
     static QMutex m_Mutex;
     static QSharedPointer<ContentProvider> Qptr_contentProvider;
 
-  public:
+public:
     static StaffModel staff_model;
     static ComputerModel computer_model;
     static GroupModel group_model;
 
     static QSharedPointer<ContentProvider>& getContentProvider(){
 
-      if(Qptr_contentProvider.isNull()){
-          QMutexLocker mutexLocker(&m_Mutex);
-          if(Qptr_contentProvider.isNull()){
-              Qptr_contentProvider = QSharedPointer<ContentProvider>(new ContentProvider());
-          }
-      }
-      return Qptr_contentProvider;
+        if(Qptr_contentProvider.isNull()){
+            QMutexLocker mutexLocker(&m_Mutex);
+            if(Qptr_contentProvider.isNull()){
+                Qptr_contentProvider = QSharedPointer<ContentProvider>(new ContentProvider());
+            }
+        }
+        return Qptr_contentProvider;
     }
 
 };

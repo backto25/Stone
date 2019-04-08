@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pcList = new QList<QToolButton*>;//把PC实体(按钮)放入一个Qlist
     pushPcToList(pcList);
 
-//    Databox *databox = new Databox();
+    //    Databox *databox = new Databox();
 
     initUI();//字面意思
 
@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete pcList;
-//    delete databox;
+    //    delete databox;
 }
 
 void MainWindow::on_pushButtonAddGroup_clicked()
@@ -31,12 +31,12 @@ void MainWindow::on_pushButtonAddGroup_clicked()
     QString sqlStr = "select group_id, group_name from group";
     sqlQueryGroups.prepare( sqlStr );
     sqlQueryGroups.exec();
-//        qDebug()<<sqlQueryGroups.size()<<endl;
+    //        qDebug()<<sqlQueryGroups.size()<<endl;
 
     newGroupDialog = new NewGroup(NULL);
     newGroupDialog->setWindowTitle(QString("%1组").arg(sqlQueryGroups.size()));//更新title
 
-    newGroupDialog->show();   
+    newGroupDialog->show();
 }
 
 bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
@@ -68,11 +68,11 @@ bool MainWindow::updateGroupList()
 
     if( sqlQueryGroups.exec() )
     {
-//        qDebug()<<"查询groups成功"<<endl;
-//            qDebug()<<sqlQuery.value(1).toString()<<endl;
+        //        qDebug()<<"查询groups成功"<<endl;
+        //            qDebug()<<sqlQuery.value(1).toString()<<endl;
         while( sqlQueryGroups.next() )
         {
-//自定义控件
+            //自定义控件
             QWidget *widgetGroup = new QWidget();
             widgetGroup->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
             QHBoxLayout *layout = new QHBoxLayout(widgetGroup);
@@ -94,13 +94,13 @@ bool MainWindow::updateGroupList()
             btnProgressOn->setText(tr("开始训练"));
             widgetGroup->setLayout(layout);
 
-//插入表项
+            //插入表项
             QListWidgetItem *aItem = new QListWidgetItem(ui->listWidgetGroups);
             ui->listWidgetGroups->addItem(aItem);
             ui->listWidgetGroups->setItemWidget(aItem, widgetGroup);
             aItem->setSizeHint(QSize(0,50));
-            }
         }
+    }
     return true;
 }
 
@@ -112,7 +112,7 @@ bool MainWindow::updatePcView()
 
     if( sqlQueryPc.exec() )
     {
-//        qDebug()<<"查询pc成功"<<endl;
+        //        qDebug()<<"查询pc成功"<<endl;
         while( sqlQueryPc.next() )
         {
             int indexOfPc = sqlQueryPc.value(0).toInt()-1;//不同组不同颜色表示
@@ -131,8 +131,8 @@ bool MainWindow::updatePcView()
 
 bool MainWindow::initUI()
 {
-   this->updateGroupList();
-   this->updatePcView();
+    this->updateGroupList();
+    this->updatePcView();
 }
 
 bool MainWindow::choosePc()
