@@ -15,41 +15,13 @@ NewGroup::~NewGroup()
 }
 bool NewGroup::initStaffList()
 {
-    QSqlQuery sqlQueryStaff;
-    QString sqlStr = "select staff_id, staff_name, staff_group_id, staff_role from staff";
-    sqlQueryStaff.prepare( sqlStr );
-
-
-    StaffModel &smod =contentProvider.staff_model;
-    smod.flashBySQL();
-    qDebug()<<"xxxxxxxxx    ";
-    qDebug()<<smod.size();
-    qDebug()<<"    xxxxxxxxx    "<<endl;
-
-
-
-    for(int i=0;i<smod.size();++i){
+    StaffModel &staffModel =contentProvider->staff_model;
+    staffModel.flashBySQL();
+    for(int i=0;i<staffModel.size();++i){
         QListWidgetItem *item = new QListWidgetItem();
-        item->setText(smod.getStaffByIndex(i).staff_name);
+        item->setText(staffModel.getStaffByIndex(i).staff_name);
         ui->listWidgetStaffs->addItem(item);
     }
-
-    //    if( sqlQueryStaff.exec() )
-    //    {
-    //        qDebug()<<"查询staff成功"<<endl;
-    //        int row = 0;
-    //        while( sqlQueryStaff.next() )
-    //        {
-    //            QListWidgetItem *item = new QListWidgetItem();
-    //            item->setText(sqlQueryStaff.value(1).toString());
-    //            ui->listWidgetStaffs->addItem(item);
-    //            qDebug()<<sqlQueryStaff.value(2).toInt()<<endl;
-    //            qDebug()<<sqlQueryStaff.value(0).toInt()<<endl;
-    //            if( sqlQueryStaff.value(2).toInt() != 0)
-    //                ui->listWidgetStaffs->setItemHidden(ui->listWidgetStaffs->item(row), true);
-    //            row++;
-    //        }
-    //    }
 }
 bool NewGroup::on_pushButtonOK_clicked()
 {

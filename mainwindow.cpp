@@ -106,9 +106,9 @@ bool MainWindow::updateGroupList()
 
 bool MainWindow::updatePcView()
 {
-    GroupModel &groupModel =contentProvider.group_model;
-   ComputerModel &computerModel =contentProvider.computer_model;
-    StaffModel &staffModel =contentProvider.staff_model;
+    GroupModel &groupModel =contentProvider->group_model;
+   ComputerModel &computerModel =contentProvider->computer_model;
+    StaffModel &staffModel =contentProvider->staff_model;
 
     groupModel.flashBySQL();
     for(int i = 0; i < groupModel.size(); ++i)
