@@ -37,6 +37,9 @@ Computer ComputerModel::getComputerByIndex(int index)const{
 
 bool ComputerModel::addOneComputer(Computer computer){
     computers.push_back(computer);
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("insert into pc value ('%1') ").arg(computer.computer_id)))
+        return false;
     return true;
 }
 

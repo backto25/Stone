@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+//视图更新
     bool initUI();//更新整个UI
     bool updateGroupManegeView();//更新分组管理视图
     bool updatePcBoxView();//更新台位视图
@@ -28,6 +28,7 @@ public:
     bool pushPcToList(QList<QToolButton*> *pList);//保存ui上的电脑实体，方便管理
 
 private slots:
+
     void on_pushButtonAddGroup_clicked();
     bool addGroup_secondStep_choosePc(Group tempGroup);
 

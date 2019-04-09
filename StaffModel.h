@@ -37,7 +37,8 @@ public:
     int size()const;
 
     bool flashBySQL();
-    bool saveToDB();
+    bool updateOne(int id);
+
 };
 /*  ************************************
 ************************************  */

@@ -37,11 +37,26 @@ Staff StaffModel::getStaffByIndex(int index)const{
 
 bool StaffModel::addOneStaff(Staff staff){
     staffs.push_back(staff);
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("insert into staff value ('%1', '%2') ").arg(staff.staff_id).arg(staff.staff_name)))
+        return false;
     return true;
 }
 
-bool StaffModel::rmOneStaff(int index){
+bool StaffModel::rmOneStaff(int index){ 
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("delete from staff where 'staff_id' = %1").arg(staffs[index].staff_id)))
+        return false;
     staffs.remove(index);
+    return true;
+}
+
+bool StaffModel::updateOne(int id){
+    QSqlQuery sqlQuery;
+    int index = findIndexById(id);
+    if(!sqlQuery.exec(QString(" UPDATE `poi`.`staff` SET `staff_name`='%1' WHERE  `staff_id`=%2;")
+                      .arg(staffs[index].staff_name).arg(staffs[index].staff_id)))
+        return false;
     return true;
 }
 
@@ -63,10 +78,6 @@ bool StaffModel::flashBySQL(){
         temp.staff_name = sqlQueryStaff.value(1).toString();
         addOneStaff(temp);
     }
-    return true;
-}
-
-bool StaffModel::saveToDB(){
     return true;
 }
 

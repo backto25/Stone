@@ -52,10 +52,30 @@ QVector<int> GroupModel::findByType(int type){
 
 bool GroupModel::addOneGroup(Group group){
     groups.push_back(group);
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("insert into 'group' value ('%1', '%2') ")
+                      .arg(group.group_id).arg(group.group_name)))
+        return false;
+    for(int i = 0; i < group.staffs.size(); ++i)
+    {
+        if(!sqlQuery.exec(QString("insert into group_staff value ('%1', '%2') ")
+                          .arg(group.group_id).arg(group.staffs[i])))
+            return false;
+    }
+    for(int i = 0; i < group.computers.size(); ++i)
+    {
+        if(!sqlQuery.exec(QString("insert into group_pc value ('%1', '%2') ")
+                          .arg(group.group_id).arg(group.computers[i])))
+            return false;
+    }
     return true;
 }
 
 bool GroupModel::rmOneGroup(int index){
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("delete from 'group' where group_id = '%1' ")
+                      .arg(groups[index].group_id)))
+        return false;
     groups.remove(index);
     return true;
 }
@@ -99,7 +119,24 @@ bool GroupModel::flashBySQL(){
     return true;
 }
 
-bool GroupModel::saveToDB(){
+bool GroupModel::updateOne(int id){
+    QSqlQuery sqlQuery;
+    int index = this->findIndexById(id);
+    if(!sqlQuery.exec(QString("UPDATE `poi`.`group` SET `group_name`='%1' WHERE  `group_id`='%2'; ")
+                      .arg(groups[index].group_name).arg(groups[index].group_id)))
+        return false;
+    for(int i = 0; i < groups[index].staffs.size(); ++i)
+    {
+        if(!sqlQuery.exec(QString("insert into group_staff value ('%1', '%2') ")
+                          .arg(groups[index].group_id).arg(groups[index].staffs[i])))
+            return false;
+    }
+    for(int i = 0; i < groups[index].computers.size(); ++i)
+    {
+        if(!sqlQuery.exec(QString("insert into group_pc value ('%1', '%2') ")
+                          .arg(groups[index].group_id).arg(groups[index].computers[i])))
+            return false;
+    }
     return true;
 }
 

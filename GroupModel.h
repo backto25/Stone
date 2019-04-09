@@ -52,7 +52,7 @@ public:
     bool isStaffIncluded(int staffId);
 
     bool flashBySQL();
-    bool saveToDB();
+    bool updateOne(int id);
 };
 /*  ************************************
 ************************************  */
