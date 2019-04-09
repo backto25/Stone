@@ -7,6 +7,7 @@
 #include <QToolButton>
 
 #include "newgroup.h"
+#include "newgroupsecondstep.h"
 /*  *****************************************************
 *****************************************************  */
 namespace Ui {
@@ -21,7 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 //视图更新
-    bool initUI();//更新整个UI
+    bool updateView();//更新整个UI
     bool updateGroupManegeView();//更新分组管理视图
     bool updatePcBoxView();//更新台位视图
 
@@ -30,11 +31,13 @@ public:
 private slots:
 
     void on_pushButtonAddGroup_clicked();
-    bool addGroup_secondStep_choosePc(Group tempGroup);
+    bool addGroup_secondStep_choosePc();
+    bool backTo_firstStep_chooseStaff();
 
 private:
     Ui::MainWindow *ui;//Qt设计师
-    NewGroup *newGroupDialog;//新建分组窗口
+    NewGroup *newGroupFirstStep;//新建分组窗口第一步
+    NewGroupSecondStep *newGroupSecondStep;//新建分组窗口第二步
     QList<QToolButton*> *pcList;//保存ui上的电脑实体，方便管理
 };
 

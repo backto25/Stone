@@ -11,6 +11,16 @@ NewGroup::NewGroup(QWidget *parent) :
     ui(new Ui::NewGroup)
 {
     ui->setupUi(this);
+    this->chooseStaffView();
+}
+
+NewGroup::~NewGroup()
+{
+    delete ui;
+}
+/*  *****************************************************
+*****************************************************  */
+bool NewGroup::chooseStaffView(){
     GroupModel &groupModel = contentProvider->group_model;
     StaffModel &staffModel =contentProvider->staff_model;
 
@@ -23,13 +33,10 @@ NewGroup::NewGroup(QWidget *parent) :
             ui->listWidgetStaffs->setItemHidden(
                         ui->listWidgetStaffs->item(staffModel.getStaffByIndex(i).staff_id - 1), true);
     }
+    return true;
 }
-
-NewGroup::~NewGroup()
-{
-    delete ui;
-}
-
+/*  *****************************************************
+*****************************************************  */
 bool NewGroup::on_pushButtonOK_clicked()
 {
     QItemSelectionModel *selections = ui->listWidgetStaffs->selectionModel(); //返回当前的选择模式
@@ -42,13 +49,15 @@ bool NewGroup::on_pushButtonOK_clicked()
     else
     {
         GroupModel &groupModel = contentProvider->group_model;
-        Group tempGroup;
-        tempGroup.group_id = groupModel.size();
+        Group &tempGroup = contentProvider->group_model.tempGroup;
+        qDebug()<<groupModel.size();
+        tempGroup.group_id = groupModel.size() + 1;
         tempGroup.group_name = ui->lineEditInputGroupName->text();
+        tempGroup.staffs.clear();
         for (int i = 0; i < selectedsList.count(); i++){
             tempGroup.staffs.push_back((selectedsList.at(i).row() + 1));
         }
-        emit askFor_addGroup_secondStep(tempGroup);
+        emit askFor_addGroup_secondStep();
         this->hide();
         return true;
     }

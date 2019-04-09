@@ -20,13 +20,16 @@ public:
     explicit NewGroup(QWidget *parent = 0);
     ~NewGroup();
 
+    bool chooseStaffView();
+
+
 private slots:
     bool on_pushButtonOK_clicked();
 
     void on_pushButtonCancel_clicked();
 
 signals:
-    bool askFor_addGroup_secondStep(Group tempGroup);
+    bool askFor_addGroup_secondStep();
 
 private:
     Ui::NewGroup *ui;

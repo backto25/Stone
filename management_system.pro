@@ -18,17 +18,20 @@ SOURCES += main.cpp\
     StaffModel.cpp \
     GroupModel.cpp \
     ComputerModel.cpp \
-    ContentProvider.cpp
+    ContentProvider.cpp \
+    newgroupsecondstep.cpp
 
 HEADERS  += mainwindow.h \
     newgroup.h \
     ContentProvider.h \
     StaffModel.h \
     GroupModel.h \
-    ComputerModel.h
+    ComputerModel.h \
+    newgroupsecondstep.h
 
 FORMS    += mainwindow.ui \
-    newgroup.ui
+    newgroup.ui \
+    newgroupsecondstep.ui
 
 RESOURCES += \
     resource/resource.qrc

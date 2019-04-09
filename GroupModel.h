@@ -35,6 +35,7 @@ private:
 
 public:
     static const int DIM = 5;
+    Group tempGroup;
 
     GroupModel(QObject *parent = 0);
     ~GroupModel();
@@ -50,6 +51,7 @@ public:
     bool rmOneGroup(int index);
     int size()const;
     bool isStaffIncluded(int staffId);
+    bool isComputerIncluded(int computerId);
 
     bool flashBySQL();
     bool updateOne(int id);

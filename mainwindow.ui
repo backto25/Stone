@@ -316,9 +316,6 @@
      </widget>
     </item>
    </layout>
-   <zorder>widget</zorder>
-   <zorder>frame</zorder>
-   <zorder></zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -10,27 +10,30 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    newGroupSecondStep = new NewGroupSecondStep();
+    newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
-    newGroupDialog = new NewGroup();
+
+
 
     pushPcToList(pcList);
 
-    initUI();
+    updateView();
 
-    connect(newGroupDialog, SIGNAL(askFor_addGroup_secondStep(Group)), this, SLOT(addGroup_secondStep_choosePc(Group)));
-
+    connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
+    connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete pcList;
-    delete newGroupDialog;
+    delete newGroupFirstStep;
+    delete newGroupSecondStep;
 }
 /*  *****************************************************
-视图更新
 *****************************************************  */
-bool MainWindow::initUI()
+bool MainWindow::updateView()
 {
     this->updateGroupManegeView();
     this->updatePcBoxView();
@@ -84,21 +87,26 @@ bool MainWindow::updatePcBoxView()
     }
 }
 /*  *****************************************************
-槽函数
 *****************************************************  */
-//新建分组按钮
 void MainWindow::on_pushButtonAddGroup_clicked()
 {
-    newGroupDialog->show();
+    newGroupFirstStep->show();
 }
-//？？？
-bool MainWindow::addGroup_secondStep_choosePc(Group tempGroup)
+
+bool MainWindow::addGroup_secondStep_choosePc()
 {
     qDebug()<<"choosePc槽函数";
+    newGroupSecondStep->chooseComputerView();
+    newGroupSecondStep->show();
     return true;
 }
+
+bool MainWindow::backTo_firstStep_chooseStaff(){
+    newGroupFirstStep->show();
+    return true;
+}
+
 /*  *****************************************************
-成员函数
 *****************************************************  */
 bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
 {

@@ -152,6 +152,19 @@ bool GroupModel::isStaffIncluded(int staffId){
     return find;
 }
 
+bool GroupModel::isComputerIncluded(int computerId){
+    QVector<Group>::iterator it;
+    bool find = false;
+    for( it=groups.begin(); it != groups.end(); ++it){
+        if( it->isComputerIncluded(computerId)){
+            find = true;
+            break;
+        }
+    }
+    return find;
+}
+
+
 /*  ************************************
 class ComputerModel for QAbstractTableModel
 ************************************  */
