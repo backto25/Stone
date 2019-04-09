@@ -1,20 +1,23 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include<QDebug>
+#include <QHBoxLayout>
+#include <QListWidgetItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);//加载qt设计师
+    ui->setupUi(this);
 
-    pcList = new QList<QToolButton*>;//把PC实体(按钮)放入一个Qlist
+    pcList = new QList<QToolButton*>;
+    newGroupDialog = new NewGroup();
+
     pushPcToList(pcList);
 
-    //    Databox *databox = new Databox();
+    initUI();
 
-    initUI();//字面意思
-
-    connect(newGroupDialog, SIGNAL(choosePc()), this, SLOT(choosePc()));
+    connect(newGroupDialog, SIGNAL(askFor_addGroup_secondStep(Group)), this, SLOT(addGroup_secondStep_choosePc(Group)));
 
 }
 
@@ -22,41 +25,19 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete pcList;
-    //    delete databox;
+    delete newGroupDialog;
+}
+/*  *****************************************************
+视图更新
+*****************************************************  */
+bool MainWindow::initUI()
+{
+    this->updateGroupManegeView();
+    this->updatePcBoxView();
 }
 
-void MainWindow::on_pushButtonAddGroup_clicked()
+bool MainWindow::updateGroupManegeView()
 {
-    GroupModel &groupModel = contentProvider->group_model;
-    newGroupDialog = new NewGroup(NULL);
-    newGroupDialog->setWindowTitle(QString("%1组").arg(groupModel.size() + 1 ));//更新title
-
-    newGroupDialog->show();
-}
-
-bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
-{
-    pList->append(ui->toolButtonPC_1);
-    pList->append(ui->toolButtonPC_2);
-    pList->append(ui->toolButtonPC_3);
-    pList->append(ui->toolButtonPC_4);
-    pList->append(ui->toolButtonPC_5);
-    pList->append(ui->toolButtonPC_6);
-    pList->append(ui->toolButtonPC_7);
-    pList->append(ui->toolButtonPC_8);
-    pList->append(ui->toolButtonPC_9);
-    pList->append(ui->toolButtonPC_10);
-    pList->append(ui->toolButtonPC_11);
-    pList->append(ui->toolButtonPC_12);
-
-    return true;
-}
-
-bool MainWindow::updateGroupList()
-{
-    /*  *****************************************************
-     * 初始化listWidgetGroups
-    *****************************************************  */
     GroupModel &groupModel = contentProvider->group_model;
 
     for(int i = 0; i < groupModel.size(); ++i)
@@ -84,7 +65,7 @@ bool MainWindow::updateGroupList()
     return true;
 }
 
-bool MainWindow::updatePcView()
+bool MainWindow::updatePcBoxView()
 {
     GroupModel &groupModel =contentProvider->group_model;
     ComputerModel &computerModel =contentProvider->computer_model;
@@ -92,7 +73,6 @@ bool MainWindow::updatePcView()
     for(int i = 0; i < groupModel.size(); ++i)
     {
         QVector<int> temp = groupModel.getGroupByIndex(i).computers;
-        qDebug()<<"temp.size()"<<temp.size();
         Computer pcTemp;
         for(int j = 0; j < temp.size(); ++j){
             if(computerModel.findIndexById(temp[j]) != -1) {
@@ -103,14 +83,37 @@ bool MainWindow::updatePcView()
         }
     }
 }
-
-bool MainWindow::initUI()
+/*  *****************************************************
+槽函数
+*****************************************************  */
+//新建分组按钮
+void MainWindow::on_pushButtonAddGroup_clicked()
 {
-    this->updateGroupList();
-    this->updatePcView();
+    newGroupDialog->show();
 }
-
-bool MainWindow::choosePc()
+//？？？
+bool MainWindow::addGroup_secondStep_choosePc(Group tempGroup)
 {
+    qDebug()<<"choosePc槽函数";
+    return true;
+}
+/*  *****************************************************
+成员函数
+*****************************************************  */
+bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
+{
+    pList->append(ui->toolButtonPC_1);
+    pList->append(ui->toolButtonPC_2);
+    pList->append(ui->toolButtonPC_3);
+    pList->append(ui->toolButtonPC_4);
+    pList->append(ui->toolButtonPC_5);
+    pList->append(ui->toolButtonPC_6);
+    pList->append(ui->toolButtonPC_7);
+    pList->append(ui->toolButtonPC_8);
+    pList->append(ui->toolButtonPC_9);
+    pList->append(ui->toolButtonPC_10);
+    pList->append(ui->toolButtonPC_11);
+    pList->append(ui->toolButtonPC_12);
 
+    return true;
 }

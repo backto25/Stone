@@ -6,7 +6,12 @@
 /*  ************************************
 class Staff
 ************************************  */
-//
+
+/*
+    *                *               *               *               *
+                                                                */
+
+
 /*  ************************************
 class StaffModel
 ************************************  */
@@ -46,39 +51,40 @@ int StaffModel::size() const
 bool StaffModel::flashBySQL(){
     staffs.clear();
     QSqlQuery sqlQueryStaff;
-    sqlQueryStaff.prepare( "select staff_id, staff_name, staff_group_id, staff_role from staff" );
+    sqlQueryStaff.prepare( "select staff_id, staff_name from staff" );
     Staff temp;
 
     if(!sqlQueryStaff.exec())
         return false;
 
     for(int i = 0; i < sqlQueryStaff.size(); i++){
-
+        sqlQueryStaff.next();
         temp.staff_id = sqlQueryStaff.value(0).toInt();
         temp.staff_name = sqlQueryStaff.value(1).toString();
         addOneStaff(temp);
-
-        sqlQueryStaff.next();
     }
     return true;
 }
+
+bool StaffModel::saveToDB(){
+    return true;
+}
+
 /*  ************************************
 class StaffModel for QAbstractTableModel
 ************************************  */
+
 StaffModel::StaffModel(QObject *parent) :QAbstractTableModel(parent){
     // set users from content ContentProvider
     staffs.clear();
 }
-
 StaffModel::~StaffModel(){
     // set staffs from content ContentProvider
     staffs.clear();
 }
-
 int	StaffModel::rowCount(const QModelIndex & paren) const{
     return this->size();
 }
-
 int	StaffModel::columnCount(const QModelIndex & parent) const{
     return this->DIM;
 }
@@ -104,6 +110,3 @@ QVariant StaffModel::data(const QModelIndex & index, int role) const{
     return QVariant();
 }
 
-bool StaffModel::saveToDB(){
-    return true;
-}

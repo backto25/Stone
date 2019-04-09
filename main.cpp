@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QSqlDatabase>
+#include <QMessageBox>
+#include <QSqlError>
 
 bool connectDB();
 

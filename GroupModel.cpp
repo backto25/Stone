@@ -103,6 +103,18 @@ bool GroupModel::saveToDB(){
     return true;
 }
 
+bool GroupModel::isStaffIncluded(int staffId){
+    QVector<Group>::iterator it;
+    bool find = false;
+    for( it=groups.begin(); it != groups.end(); ++it){
+        if( it->isStaffIncluded(staffId)){
+            find = true;
+            break;
+        }
+    }
+    return find;
+}
+
 /*  ************************************
 class ComputerModel for QAbstractTableModel
 ************************************  */

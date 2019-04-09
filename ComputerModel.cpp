@@ -6,7 +6,12 @@
 /*  ************************************
 class Computer
 ************************************  */
-//
+
+/*
+    *                *               *               *               *
+                                                                */
+
+
 /*  ************************************
 class ComputerModel
 ************************************  */
@@ -53,31 +58,28 @@ bool ComputerModel::flashBySQL(){
         return false;
 
     for(int i = 0; i < sqlQuery.size(); i++){
-
+        sqlQuery.next();
         temp.computer_id = sqlQuery.value(0).toInt();
         addOneComputer(temp);
-
-        sqlQuery.next();
     }
     return true;
 }
+
 /*  ************************************
 class ComputerModel for QAbstractTableModel
 ************************************  */
+
 ComputerModel::ComputerModel(QObject *parent) :QAbstractTableModel(parent){
     // set users from content ContentProvider
     computers.clear();
 }
-
 ComputerModel::~ComputerModel(){
     // set users from content ContentProvider
     computers.clear();
 }
-
 int	ComputerModel::rowCount(const QModelIndex & paren) const{
     return this->size();
 }
-
 int	ComputerModel::columnCount(const QModelIndex & parent) const{
     return this->DIM;
 }
@@ -102,7 +104,6 @@ QVariant ComputerModel::data(const QModelIndex & index, int role) const{
 
     return QVariant();
 }
-
 bool ComputerModel::saveToDB(){
     return true;
 }

@@ -49,6 +49,7 @@ public:
     bool addOneGroup(Group group);
     bool rmOneGroup(int index);
     int size()const;
+    bool isStaffIncluded(int staffId);
 
     bool flashBySQL();
     bool saveToDB();
