@@ -66,6 +66,7 @@ void NewGroupSecondStep::on_pushButtonSave_clicked()
         for (int i = 0; i < selectedsList.count(); i++){
             tempGroup.computers.push_back((selectedsList.at(i).row() + 1));
         }
+        groupModel.addOneGroup(tempGroup);
         emit shutDown_firstStep();
         this->close();
     }
