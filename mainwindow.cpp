@@ -14,14 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
 
-
-
     pushPcToList(pcList);
 
     updateView();
 
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
+    connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
 }
 
 MainWindow::~MainWindow()
@@ -31,8 +30,10 @@ MainWindow::~MainWindow()
     delete newGroupFirstStep;
     delete newGroupSecondStep;
 }
+
 /*  *****************************************************
 *****************************************************  */
+
 bool MainWindow::updateView()
 {
     this->updateGroupManegeView();
@@ -42,6 +43,8 @@ bool MainWindow::updateView()
 bool MainWindow::updateGroupManegeView()
 {
     GroupModel &groupModel = contentProvider->group_model;
+
+    ui->listWidgetGroups->clear();
 
     for(int i = 0; i < groupModel.size(); ++i)
     {
@@ -86,16 +89,19 @@ bool MainWindow::updatePcBoxView()
         }
     }
 }
+
 /*  *****************************************************
 *****************************************************  */
+
 void MainWindow::on_pushButtonAddGroup_clicked()
 {
+
+    newGroupFirstStep->chooseStaffView();
     newGroupFirstStep->show();
 }
 
 bool MainWindow::addGroup_secondStep_choosePc()
 {
-    qDebug()<<"choosePc槽函数";
     newGroupSecondStep->chooseComputerView();
     newGroupSecondStep->show();
     return true;
@@ -106,8 +112,15 @@ bool MainWindow::backTo_firstStep_chooseStaff(){
     return true;
 }
 
+bool MainWindow::shutDown_firstStep(){
+    newGroupFirstStep->close();
+    this->updateView();
+    return true;
+}
+
 /*  *****************************************************
 *****************************************************  */
+
 bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
 {
     pList->append(ui->toolButtonPC_1);
@@ -125,3 +138,5 @@ bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
 
     return true;
 }
+
+

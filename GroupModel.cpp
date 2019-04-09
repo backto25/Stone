@@ -51,23 +51,38 @@ QVector<int> GroupModel::findByType(int type){
 }
 
 bool GroupModel::addOneGroup(Group group){
-    groups.push_back(group);
     QSqlQuery sqlQuery;
-    if(!sqlQuery.exec(QString("insert into 'group' value ('%1', '%2') ")
-                      .arg(group.group_id).arg(group.group_name)))
+    sqlQuery.exec(QString("select * from `group` where group_id = %1").arg(group.group_id));
+    if(sqlQuery.size()!=0){
+      qDebug()<<"group have"<<group.group_id;
+      return false;
+    }
+
+    if(!sqlQuery.exec(QString("insert into `group` values ('%1', '%2') ")
+                      .arg(group.group_id).arg(group.group_name))){
+        qDebug()<<QString("insert into `group` values ('%1', '%2') ").arg(group.group_id).arg(group.group_name);
         return false;
+    }
+
     for(int i = 0; i < group.staffs.size(); ++i)
     {
-        if(!sqlQuery.exec(QString("insert into group_staff value ('%1', '%2') ")
-                          .arg(group.group_id).arg(group.staffs[i])))
+        if(!sqlQuery.exec(QString("insert into group_staff values ('%1', '%2') ")
+                          .arg(group.group_id).arg(group.staffs[i]))){
+            qDebug()<<QString("insert into group_staff values ('%1', '%2') ").arg(group.group_id).arg(group.staffs[i]);
             return false;
+        }
     }
+
     for(int i = 0; i < group.computers.size(); ++i)
     {
-        if(!sqlQuery.exec(QString("insert into group_pc value ('%1', '%2') ")
-                          .arg(group.group_id).arg(group.computers[i])))
+        if(!sqlQuery.exec(QString("insert into group_pc values ('%1', '%2') ")
+                          .arg(group.group_id).arg(group.computers[i]))){
+            qDebug()<<QString("insert into group_pc values ('%1', '%2') ");
             return false;
+        }
     }
+
+    groups.push_back(group);
     return true;
 }
 
@@ -114,7 +129,7 @@ bool GroupModel::flashBySQL(){
             sqlQueryGroupPC.next();
             temp.computers.push_back(sqlQueryGroupPC.value(0).toInt());
         }
-        addOneGroup(temp);
+        groups.push_back(temp);
     }
     return true;
 }
@@ -206,5 +221,3 @@ QVariant GroupModel::data(const QModelIndex & index, int role) const{
 
     return QVariant();
 }
-
-

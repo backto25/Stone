@@ -33,6 +33,7 @@ private slots:
     void on_pushButtonAddGroup_clicked();
     bool addGroup_secondStep_choosePc();
     bool backTo_firstStep_chooseStaff();
+    bool shutDown_firstStep();
 
 private:
     Ui::MainWindow *ui;//Qt设计师

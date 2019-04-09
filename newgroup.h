@@ -28,6 +28,7 @@ private slots:
 
     void on_pushButtonCancel_clicked();
 
+
 signals:
     bool askFor_addGroup_secondStep();
 

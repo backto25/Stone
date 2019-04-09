@@ -1,6 +1,7 @@
 #include "newgroupsecondstep.h"
 #include "ui_newgroupsecondstep.h"
 #include <QDebug>
+#include <QMessageBox>
 
 NewGroupSecondStep::NewGroupSecondStep(QWidget *parent) :
     QWidget(parent),
@@ -8,11 +9,16 @@ NewGroupSecondStep::NewGroupSecondStep(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+/*  *****************************************************
+*****************************************************  */
 
 NewGroupSecondStep::~NewGroupSecondStep()
 {
     delete ui;
 }
+
+/*  *****************************************************
+*****************************************************  */
 
 bool NewGroupSecondStep::chooseComputerView(){
     GroupModel &groupModel = contentProvider->group_model;
@@ -20,7 +26,6 @@ bool NewGroupSecondStep::chooseComputerView(){
     Group &tempGroup = contentProvider->group_model.tempGroup;
     this->setWindowTitle(QString("%1组").arg(tempGroup.group_id) + 1);//更新title
     ui->label_3->setText(tempGroup.group_name);
-    qDebug()<<tempGroup.group_name;
     ui->listWidget->clear();
     for(int i=0;i<computerModel.size();++i){
         QListWidgetItem *item = new QListWidgetItem();
@@ -34,8 +39,37 @@ bool NewGroupSecondStep::chooseComputerView(){
     return true;
 }
 
+/*  *****************************************************
+*****************************************************  */
+
 void NewGroupSecondStep::on_pushButtonLastStep_clicked()
 {
     this->hide();
     emit backTo_addGroup_firstStep();
 }
+
+void NewGroupSecondStep::on_pushButtonSave_clicked()
+{
+    GroupModel &groupModel = contentProvider->group_model;
+    Group &tempGroup = contentProvider->group_model.tempGroup;
+
+    QItemSelectionModel *selections = ui->listWidget->selectionModel(); //返回当前的选择模式
+    QModelIndexList selectedsList = selections->selectedIndexes(); //返回所有选定的模型项目索引列表
+
+    if(selectedsList.count() == 0)
+        QMessageBox::warning(this, tr("警告"), tr("您未选择电脑呢！"));
+    else if(selectedsList.count() != tempGroup.staffs.size())
+        QMessageBox::warning(this, tr("警告"), tr("电脑与人数不匹配！"));
+    else
+    {
+        tempGroup.computers.clear();
+        for (int i = 0; i < selectedsList.count(); i++){
+            tempGroup.computers.push_back((selectedsList.at(i).row() + 1));
+        }
+        emit shutDown_firstStep();
+        this->close();
+    }
+}
+
+/*  *****************************************************
+*****************************************************  */

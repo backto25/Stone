@@ -63,7 +63,7 @@ bool ComputerModel::flashBySQL(){
     for(int i = 0; i < sqlQuery.size(); i++){
         sqlQuery.next();
         temp.computer_id = sqlQuery.value(0).toInt();
-        addOneComputer(temp);
+        computers.push_back(temp);
     }
     return true;
 }

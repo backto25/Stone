@@ -22,8 +22,12 @@ public:
 private slots:
     void on_pushButtonLastStep_clicked();
 
+    void on_pushButtonSave_clicked();
+
 signals:
     bool backTo_addGroup_firstStep();
+
+    bool shutDown_firstStep();
 
 private:
     Ui::NewGroupSecondStep *ui;

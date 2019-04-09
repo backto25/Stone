@@ -11,20 +11,22 @@ NewGroup::NewGroup(QWidget *parent) :
     ui(new Ui::NewGroup)
 {
     ui->setupUi(this);
-    this->chooseStaffView();
 }
 
 NewGroup::~NewGroup()
 {
     delete ui;
 }
+
 /*  *****************************************************
 *****************************************************  */
+
 bool NewGroup::chooseStaffView(){
     GroupModel &groupModel = contentProvider->group_model;
     StaffModel &staffModel =contentProvider->staff_model;
 
     this->setWindowTitle(QString("%1组").arg(groupModel.size() + 1 ));//更新title
+    ui->listWidgetStaffs->clear();
     for(int i=0;i<staffModel.size();++i){
         QListWidgetItem *item = new QListWidgetItem();
         item->setText(staffModel.getStaffByIndex(i).staff_name);
@@ -35,8 +37,10 @@ bool NewGroup::chooseStaffView(){
     }
     return true;
 }
+
 /*  *****************************************************
 *****************************************************  */
+
 bool NewGroup::on_pushButtonOK_clicked()
 {
     QItemSelectionModel *selections = ui->listWidgetStaffs->selectionModel(); //返回当前的选择模式
@@ -50,7 +54,6 @@ bool NewGroup::on_pushButtonOK_clicked()
     {
         GroupModel &groupModel = contentProvider->group_model;
         Group &tempGroup = contentProvider->group_model.tempGroup;
-        qDebug()<<groupModel.size();
         tempGroup.group_id = groupModel.size() + 1;
         tempGroup.group_name = ui->lineEditInputGroupName->text();
         tempGroup.staffs.clear();
@@ -67,3 +70,6 @@ void NewGroup::on_pushButtonCancel_clicked()
 {
     this->close();
 }
+
+/*  *****************************************************
+*****************************************************  */

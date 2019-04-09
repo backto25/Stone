@@ -76,7 +76,7 @@ bool StaffModel::flashBySQL(){
         sqlQueryStaff.next();
         temp.staff_id = sqlQueryStaff.value(0).toInt();
         temp.staff_name = sqlQueryStaff.value(1).toString();
-        addOneStaff(temp);
+        staffs.push_back(temp);
     }
     return true;
 }
