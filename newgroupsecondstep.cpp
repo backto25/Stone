@@ -44,7 +44,7 @@ bool NewGroupSecondStep::chooseComputerView(){
 
 void NewGroupSecondStep::on_pushButtonLastStep_clicked()
 {
-    this->hide();
+    this->close();
     emit backTo_addGroup_firstStep();
 }
 

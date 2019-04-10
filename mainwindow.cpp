@@ -73,21 +73,21 @@ bool MainWindow::updateGroupManegeView()
 
 bool MainWindow::updatePcBoxView()
 {
-    GroupModel &groupModel =contentProvider->group_model;
-    ComputerModel &computerModel =contentProvider->computer_model;
-
+    GroupModel &groupModel = contentProvider->group_model;
+    ComputerModel &computerModel = contentProvider->computer_model;
     for(int i = 0; i < groupModel.size(); ++i)
     {
         QVector<int> temp = groupModel.getGroupByIndex(i).computers;
         Computer pcTemp;
-        for(int j = 0; j < temp.size(); ++j){
+        for(int j = 0; j < temp.size(); ++j){               
             if(computerModel.findIndexById(temp[j]) != -1) {
                 pcTemp=computerModel.getComputerByIndex(computerModel.findIndexById(temp[j]));
                 pcList->at(pcTemp.computer_id-1)->setStyleSheet(
-                            ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);
+                            ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);         
             }
         }
     }
+    return true;
 }
 
 /*  *****************************************************

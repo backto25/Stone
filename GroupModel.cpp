@@ -108,9 +108,11 @@ bool GroupModel::flashBySQL(){
     sqlQueryGroup.prepare( "select group_id, group_name from `group`" );
     if(!sqlQueryGroup.exec())
         return false;
-
     for(int i = 0; i < sqlQueryGroup.size(); i++){
         sqlQueryGroup.next();
+        temp.staffs.clear();
+        temp.computers.clear();
+//        qDebug()<<"sqlQueryGroup.value(0).toInt()"<<sqlQueryGroup.value(0).toInt();
         temp.group_id = sqlQueryGroup.value(0).toInt();
         temp.group_name = sqlQueryGroup.value(1).toString();
 
@@ -123,11 +125,13 @@ bool GroupModel::flashBySQL(){
         }
 
         sqlQueryGroupPC.prepare(QString( "select pc_id from group_pc where group_id = %1" ).arg(temp.group_id));
+//        qDebug()<<"temp.group_id"<<temp.group_id;
         if(!sqlQueryGroupPC.exec())
             return false;
         for(int i = 0; i < sqlQueryGroupPC.size(); i++){
             sqlQueryGroupPC.next();
             temp.computers.push_back(sqlQueryGroupPC.value(0).toInt());
+//            qDebug()<<"sqlQueryGroupPC.value(0).toInt()"<<sqlQueryGroupPC.value(0).toInt();
         }
         groups.push_back(temp);
     }
