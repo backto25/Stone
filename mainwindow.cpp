@@ -21,6 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_contextMenu->addAction(m_editAction);
     m_contextMenu->addAction(m_delAction);
 
+//    m_staffMenu = new QMenu;
+//    m_editStaff = new QAction("编辑", this);
+//    m_delStaff = new QAction("删除", this);
+//    m_staffMenu->addAction(m_editStaff);
+//    m_staffMenu->addAction(m_delStaff);
+
     pushPcToList(pcList);
 
     updateView();
@@ -28,7 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
-    connect(ui->listWidgetGroups, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showListWidgetMenuSlot(QPoint)));
+    connect(ui->listWidgetGroups, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showListWidgetGroupMenuSlot(QPoint)));
+    connect(ui->listWidgetStaff, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showListWidgetGroupMenuSlot(QPoint)));
 }
 
 MainWindow::~MainWindow()
@@ -44,11 +51,12 @@ MainWindow::~MainWindow()
 
 bool MainWindow::updateView()
 {
-    this->updateGroupManegeView();
+    this->updateGroupBoxView();
     this->updatePcBoxView();
+    this->updateStaffBoxView();
 }
 
-bool MainWindow::updateGroupManegeView()
+bool MainWindow::updateGroupBoxView()
 {
     GroupModel &groupModel = contentProvider->group_model;
 
@@ -101,6 +109,40 @@ bool MainWindow::updatePcBoxView()
     return true;
 }
 
+bool MainWindow::updateStaffBoxView(){
+    StaffModel &staffModel =contentProvider->staff_model;
+    GroupModel &groupModel = contentProvider->group_model;
+    ui->listWidgetStaff->clear();
+
+    for(int i = staffModel.size() - 1; i >= 0; --i){
+
+        QWidget *widget = new QWidget();
+        widget->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+        QHBoxLayout *layout = new QHBoxLayout(widget);
+        QLabel *staffName = new QLabel();
+        QPushButton *sex = new QPushButton();
+        sex->setStyleSheet("background-color: rgba(235, 235, 235, 150);");
+        layout->addWidget(staffName);
+        layout->addWidget(sex);
+        staffName->setText(staffModel.getStaffByIndex(i).staff_name);
+        sex->setText(tr("性别"));
+        widget->setLayout(layout);
+
+        for(int j = 0; j < groupModel.size(); ++j){
+           if(groupModel.getGroupByIndex(j) .isStaffIncluded(staffModel.getStaffByIndex(i).staff_id))
+                staffName->setStyleSheet(ColorSetA[groupModel.getGroupByIndex(j).group_id%5]);
+        }
+
+        QListWidgetItem *aItem = new QListWidgetItem(ui->listWidgetStaff);
+        ui->listWidgetStaff->addItem(aItem);
+        ui->listWidgetStaff->setItemWidget(aItem, widget);
+        aItem->setSizeHint(QSize(0,50));
+
+        ui->listWidgetStaff->setContextMenuPolicy(Qt::CustomContextMenu);
+    }
+    return true;
+}
+
 /*  *****************************************************
 *****************************************************  */
 
@@ -129,9 +171,10 @@ bool MainWindow::shutDown_firstStep(){
     return true;
 }
 
-void MainWindow::showListWidgetMenuSlot(QPoint pos)
+void MainWindow::showListWidgetGroupMenuSlot(QPoint pos)
 {
     m_contextMenu->exec(QCursor::pos());
+//    m_staffMenu->exec(QCursor::pos());
 }
 /*  *****************************************************
 *****************************************************  */

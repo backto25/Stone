@@ -27,8 +27,9 @@ public:
     ~MainWindow();
     //视图更新
     bool updateView();//更新整个UI
-    bool updateGroupManegeView();//更新分组管理视图
+    bool updateGroupBoxView();//更新分组管理视图
     bool updatePcBoxView();//更新台位视图
+    bool updateStaffBoxView();//更新人员表视图
 
     bool pushPcToList(QList<QToolButton*> *pList);//保存ui上的电脑实体，方便管理
 
@@ -39,7 +40,7 @@ private slots:
     bool backTo_firstStep_chooseStaff();
     bool shutDown_firstStep();
 
-    void showListWidgetMenuSlot(QPoint pos);
+    void showListWidgetGroupMenuSlot(QPoint pos);
 
 private:
     Ui::MainWindow *ui;//Qt设计师
@@ -47,10 +48,15 @@ private:
     NewGroupSecondStep *newGroupSecondStep;//新建分组窗口第二步
     QList<QToolButton*> *pcList;//保存ui上的电脑实体，方便管理
 
-    //分组右键菜单
+    //分组管理右键菜单
     QMenu *m_contextMenu;
     QAction *m_editAction;
     QAction *m_delAction;
+    //分组管理右键菜单
+//    QMenu *m_staffMenu;
+//    QAction *m_editStaff;
+//    QAction *m_delStaff;
+
 };
 
 #endif // MAINWINDOW_H

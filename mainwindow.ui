@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>935</width>
-    <height>759</height>
+    <width>1130</width>
+    <height>838</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,312 +17,281 @@
    <enum>Qt::ToolButtonIconOnly</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_5">
-    <item row="0" column="0">
-     <widget class="QFrame" name="frame">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_2">
-         <property name="horizontalSpacing">
-          <number>60</number>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>590</width>
+      <height>438</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="horizontalSpacing">
+        <number>60</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>40</number>
+       </property>
+       <item row="0" column="1">
+        <widget class="QToolButton" name="toolButtonPC_2">
+         <property name="text">
+          <string>台位02</string>
          </property>
-         <property name="verticalSpacing">
-          <number>40</number>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
          </property>
-         <item row="0" column="1">
-          <widget class="QToolButton" name="toolButtonPC_2">
-           <property name="text">
-            <string>台位02</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="toolButtonPC_3">
-           <property name="text">
-            <string>台位03</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QToolButton" name="toolButtonPC_4">
-           <property name="text">
-            <string>台位04</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QToolButton" name="toolButtonPC_6">
-           <property name="text">
-            <string>台位06</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QToolButton" name="toolButtonPC_9">
-           <property name="text">
-            <string>台位09</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QToolButton" name="toolButtonPC_10">
-           <property name="text">
-            <string>台位10</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="toolButtonPC_1">
-           <property name="text">
-            <string>台位01</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QToolButton" name="toolButtonPC_11">
-           <property name="text">
-            <string>台位11</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="QToolButton" name="toolButtonPC_12">
-           <property name="text">
-            <string>台位12</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QToolButton" name="toolButtonPC_5">
-           <property name="text">
-            <string>台位05</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QToolButton" name="toolButtonPC_7">
-           <property name="text">
-            <string>台位07</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QToolButton" name="toolButtonPC_8">
-           <property name="text">
-            <string>台位08</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource/resource.qrc">
-             <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>90</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonTextUnderIcon</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
        </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QWidget" name="widget" native="true">
-      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="2">
+        <widget class="QToolButton" name="toolButtonPC_3">
+         <property name="text">
+          <string>台位03</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QToolButton" name="toolButtonPC_4">
+         <property name="text">
+          <string>台位04</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="toolButtonPC_6">
+         <property name="text">
+          <string>台位06</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QToolButton" name="toolButtonPC_9">
+         <property name="text">
+          <string>台位09</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QToolButton" name="toolButtonPC_10">
+         <property name="text">
+          <string>台位10</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QToolButton" name="toolButtonPC_1">
+         <property name="text">
+          <string>台位01</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QToolButton" name="toolButtonPC_11">
+         <property name="text">
+          <string>台位11</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QToolButton" name="toolButtonPC_12">
+         <property name="text">
+          <string>台位12</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="font">
-          <font>
-           <family>Agency FB</family>
-           <pointsize>36</pointsize>
-          </font>
-         </property>
+        <widget class="QToolButton" name="toolButtonPC_5">
          <property name="text">
-          <string>监控信息</string>
+          <string>台位05</string>
          </property>
-         <property name="textFormat">
-          <enum>Qt::AutoText</enum>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
          </property>
-         <property name="scaledContents">
-          <bool>false</bool>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_4">
+       <item row="1" column="2">
+        <widget class="QToolButton" name="toolButtonPC_7">
          <property name="text">
-          <string/>
+          <string>台位07</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QToolButton" name="toolButtonPC_8">
+         <property name="text">
+          <string>台位08</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource/resource.qrc">
+           <normaloff>:/image/PCIcon.jpg</normaloff>:/image/PCIcon.jpg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-   </layout>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>935</width>
+     <width>1130</width>
      <height>26</height>
     </rect>
    </property>
@@ -398,6 +367,73 @@
         <number>0</number>
        </property>
       </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidgetStaff">
+   <property name="windowTitle">
+    <string>人员管理</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>当前用户：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QListWidget" name="listWidgetStaff">
+       <property name="textElideMode">
+        <enum>Qt::ElideMiddle</enum>
+       </property>
+       <property name="layoutMode">
+        <enum>QListView::SinglePass</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>添加人员</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>134</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidgetMonitor">
+   <property name="windowTitle">
+    <string>监控详情</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QGridLayout" name="gridLayout_5">
+     <item row="0" column="0">
+      <widget class="QTextBrowser" name="textBrowser"/>
      </item>
     </layout>
    </widget>
