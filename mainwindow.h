@@ -5,6 +5,10 @@
 
 #include <QMainWindow>
 #include <QToolButton>
+#include <QMenu>
+#include <QAction>
+#include <QContextMenuEvent>
+#include <QMouseEvent>
 
 #include "newgroup.h"
 #include "newgroupsecondstep.h"
@@ -21,7 +25,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-//视图更新
+    //视图更新
     bool updateView();//更新整个UI
     bool updateGroupManegeView();//更新分组管理视图
     bool updatePcBoxView();//更新台位视图
@@ -35,11 +39,18 @@ private slots:
     bool backTo_firstStep_chooseStaff();
     bool shutDown_firstStep();
 
+    void showListWidgetMenuSlot(QPoint pos);
+
 private:
     Ui::MainWindow *ui;//Qt设计师
     NewGroup *newGroupFirstStep;//新建分组窗口第一步
     NewGroupSecondStep *newGroupSecondStep;//新建分组窗口第二步
     QList<QToolButton*> *pcList;//保存ui上的电脑实体，方便管理
+
+    //分组右键菜单
+    QMenu *m_contextMenu;
+    QAction *m_editAction;
+    QAction *m_delAction;
 };
 
 #endif // MAINWINDOW_H

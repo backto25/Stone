@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QListWidgetItem>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -14,6 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
 
+    m_contextMenu = new QMenu;
+    m_editAction = new QAction("编辑分组", this);
+    m_delAction = new QAction("删除分组", this);
+    m_contextMenu->addAction(m_editAction);
+    m_contextMenu->addAction(m_delAction);
+
     pushPcToList(pcList);
 
     updateView();
@@ -21,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
+    connect(ui->listWidgetGroups, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showListWidgetMenuSlot(QPoint)));
 }
 
 MainWindow::~MainWindow()
@@ -68,6 +76,9 @@ bool MainWindow::updateGroupManegeView()
         ui->listWidgetGroups->setItemWidget(aItem, widgetGroup);
         aItem->setSizeHint(QSize(0,50));
     }
+//右键菜单
+    ui->listWidgetGroups->setContextMenuPolicy(Qt::CustomContextMenu);
+
     return true;
 }
 
@@ -118,6 +129,10 @@ bool MainWindow::shutDown_firstStep(){
     return true;
 }
 
+void MainWindow::showListWidgetMenuSlot(QPoint pos)
+{
+    m_contextMenu->exec(QCursor::pos());
+}
 /*  *****************************************************
 *****************************************************  */
 
