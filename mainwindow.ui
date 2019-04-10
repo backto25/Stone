@@ -360,6 +360,9 @@
      </item>
      <item row="1" column="0" colspan="2">
       <widget class="QListWidget" name="listWidgetGroups">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="resizeMode">
         <enum>QListView::Adjust</enum>
        </property>
@@ -389,6 +392,9 @@
      </item>
      <item row="1" column="0" colspan="2">
       <widget class="QListWidget" name="listWidgetStaff">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="textElideMode">
         <enum>Qt::ElideMiddle</enum>
        </property>

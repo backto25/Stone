@@ -40,22 +40,15 @@ private slots:
     bool backTo_firstStep_chooseStaff();
     bool shutDown_firstStep();
 
-    void showListWidgetGroupMenuSlot(QPoint pos);
+    void on_listWidgetStaff_customContextMenuRequested(const QPoint &pos);
+
+    void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
 
 private:
     Ui::MainWindow *ui;//Qt设计师
     NewGroup *newGroupFirstStep;//新建分组窗口第一步
     NewGroupSecondStep *newGroupSecondStep;//新建分组窗口第二步
     QList<QToolButton*> *pcList;//保存ui上的电脑实体，方便管理
-
-    //分组管理右键菜单
-    QMenu *m_contextMenu;
-    QAction *m_editAction;
-    QAction *m_delAction;
-    //分组管理右键菜单
-//    QMenu *m_staffMenu;
-//    QAction *m_editStaff;
-//    QAction *m_delStaff;
 
 };
 

@@ -15,18 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
 
-    m_contextMenu = new QMenu;
-    m_editAction = new QAction("编辑分组", this);
-    m_delAction = new QAction("删除分组", this);
-    m_contextMenu->addAction(m_editAction);
-    m_contextMenu->addAction(m_delAction);
-
-//    m_staffMenu = new QMenu;
-//    m_editStaff = new QAction("编辑", this);
-//    m_delStaff = new QAction("删除", this);
-//    m_staffMenu->addAction(m_editStaff);
-//    m_staffMenu->addAction(m_delStaff);
-
     pushPcToList(pcList);
 
     updateView();
@@ -34,8 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
-    connect(ui->listWidgetGroups, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showListWidgetGroupMenuSlot(QPoint)));
-    connect(ui->listWidgetStaff, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showListWidgetGroupMenuSlot(QPoint)));
+
 }
 
 MainWindow::~MainWindow()
@@ -84,9 +71,6 @@ bool MainWindow::updateGroupBoxView()
         ui->listWidgetGroups->setItemWidget(aItem, widgetGroup);
         aItem->setSizeHint(QSize(0,50));
     }
-//右键菜单
-    ui->listWidgetGroups->setContextMenuPolicy(Qt::CustomContextMenu);
-
     return true;
 }
 
@@ -98,11 +82,11 @@ bool MainWindow::updatePcBoxView()
     {
         QVector<int> temp = groupModel.getGroupByIndex(i).computers;
         Computer pcTemp;
-        for(int j = 0; j < temp.size(); ++j){               
+        for(int j = 0; j < temp.size(); ++j){
             if(computerModel.findIndexById(temp[j]) != -1) {
                 pcTemp=computerModel.getComputerByIndex(computerModel.findIndexById(temp[j]));
                 pcList->at(pcTemp.computer_id-1)->setStyleSheet(
-                            ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);         
+                            ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);
             }
         }
     }
@@ -129,7 +113,7 @@ bool MainWindow::updateStaffBoxView(){
         widget->setLayout(layout);
 
         for(int j = 0; j < groupModel.size(); ++j){
-           if(groupModel.getGroupByIndex(j) .isStaffIncluded(staffModel.getStaffByIndex(i).staff_id))
+            if(groupModel.getGroupByIndex(j) .isStaffIncluded(staffModel.getStaffByIndex(i).staff_id))
                 staffName->setStyleSheet(ColorSetA[groupModel.getGroupByIndex(j).group_id%5]);
         }
 
@@ -137,8 +121,6 @@ bool MainWindow::updateStaffBoxView(){
         ui->listWidgetStaff->addItem(aItem);
         ui->listWidgetStaff->setItemWidget(aItem, widget);
         aItem->setSizeHint(QSize(0,50));
-
-        ui->listWidgetStaff->setContextMenuPolicy(Qt::CustomContextMenu);
     }
     return true;
 }
@@ -171,11 +153,6 @@ bool MainWindow::shutDown_firstStep(){
     return true;
 }
 
-void MainWindow::showListWidgetGroupMenuSlot(QPoint pos)
-{
-    m_contextMenu->exec(QCursor::pos());
-//    m_staffMenu->exec(QCursor::pos());
-}
 /*  *****************************************************
 *****************************************************  */
 
@@ -198,3 +175,47 @@ bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
 }
 
 
+
+void MainWindow::on_listWidgetStaff_customContextMenuRequested(const QPoint &pos)
+{
+    QListWidgetItem* curItem = ui->listWidgetStaff->itemAt( pos );
+    if( curItem == NULL )
+        return;
+
+    QMenu *popMenu = new QMenu( this );
+    QAction *editSeed = new QAction(tr("编辑当前人员"), this);
+    QAction *deleteSeed = new QAction(tr("删除当前人员"), this);
+    QAction *clearSeeds = new QAction(tr("清空所有人员"), this);
+    popMenu->addAction( editSeed );
+    popMenu->addAction( deleteSeed );
+    popMenu->addAction( clearSeeds );
+//    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteSeedSlot()) );
+//    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
+    popMenu->exec( QCursor::pos() );
+    delete popMenu;
+    delete editSeed;
+    delete deleteSeed;
+    delete clearSeeds;
+}
+
+void MainWindow::on_listWidgetGroups_customContextMenuRequested(const QPoint &pos)
+{
+    QListWidgetItem* curItem = ui->listWidgetGroups->itemAt( pos );
+    if( curItem == NULL )
+        return;
+
+    QMenu *popMenu = new QMenu( this );
+    QAction *editSeed = new QAction(tr("编辑当前组"), this);
+    QAction *deleteSeed = new QAction(tr("删除当前组"), this);
+    QAction *clearSeeds = new QAction(tr("清空所有组"), this);
+    popMenu->addAction( editSeed );
+    popMenu->addAction( deleteSeed );
+    popMenu->addAction( clearSeeds );
+//    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteSeedSlot()) );
+//    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
+    popMenu->exec( QCursor::pos() );
+    delete popMenu;
+    delete editSeed;
+    delete deleteSeed;
+    delete clearSeeds;
+}
