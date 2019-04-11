@@ -3,7 +3,7 @@
 #include<QDebug>
 #include <QHBoxLayout>
 #include <QListWidgetItem>
-
+#include <QEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,7 +22,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
-
 }
 
 MainWindow::~MainWindow()
@@ -42,7 +41,6 @@ bool MainWindow::updateView()
     this->updatePcBoxView();
     this->updateStaffBoxView();
 }
-
 bool MainWindow::updateGroupBoxView()
 {
     GroupModel &groupModel = contentProvider->group_model;
@@ -73,7 +71,6 @@ bool MainWindow::updateGroupBoxView()
     }
     return true;
 }
-
 bool MainWindow::updatePcBoxView()
 {
     GroupModel &groupModel = contentProvider->group_model;
@@ -92,7 +89,6 @@ bool MainWindow::updatePcBoxView()
     }
     return true;
 }
-
 bool MainWindow::updateStaffBoxView(){
     StaffModel &staffModel =contentProvider->staff_model;
     GroupModel &groupModel = contentProvider->group_model;
@@ -124,33 +120,11 @@ bool MainWindow::updateStaffBoxView(){
     }
     return true;
 }
-
-/*  *****************************************************
-*****************************************************  */
-
-void MainWindow::on_pushButtonAddGroup_clicked()
-{
-
-    newGroupFirstStep->chooseStaffView();
-    newGroupFirstStep->show();
+void MainWindow::screen_full(){
+    this->showFullScreen();
 }
-
-bool MainWindow::addGroup_secondStep_choosePc()
-{
-    newGroupSecondStep->chooseComputerView();
-    newGroupSecondStep->show();
-    return true;
-}
-
-bool MainWindow::backTo_firstStep_chooseStaff(){
-    newGroupFirstStep->show();
-    return true;
-}
-
-bool MainWindow::shutDown_firstStep(){
-    newGroupFirstStep->close();
-    this->updateView();
-    return true;
+void MainWindow::screen_normal(){
+    this->showNormal();
 }
 
 /*  *****************************************************
@@ -174,8 +148,44 @@ bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
     return true;
 }
 
+/*  *****************************************************
+*****************************************************  */
+void MainWindow::keyPressEvent(QKeyEvent *event){
+    //空格键进入全屏，esc键退出全屏
+    switch (event->key()){
+    case Qt::Key_F1:
+        screen_full();
+        break;
+    case Qt::Key_Escape:
+        screen_normal();
+        break;
+    }
+}
 
+/*  *****************************************************
+*****************************************************  */
 
+void MainWindow::on_pushButtonAddGroup_clicked()
+{
+
+    newGroupFirstStep->chooseStaffView();
+    newGroupFirstStep->show();
+}
+bool MainWindow::addGroup_secondStep_choosePc()
+{
+    newGroupSecondStep->chooseComputerView();
+    newGroupSecondStep->show();
+    return true;
+}
+bool MainWindow::backTo_firstStep_chooseStaff(){
+    newGroupFirstStep->show();
+    return true;
+}
+bool MainWindow::shutDown_firstStep(){
+    newGroupFirstStep->close();
+    this->updateView();
+    return true;
+}
 void MainWindow::on_listWidgetStaff_customContextMenuRequested(const QPoint &pos)
 {
     QListWidgetItem* curItem = ui->listWidgetStaff->itemAt( pos );
@@ -197,7 +207,6 @@ void MainWindow::on_listWidgetStaff_customContextMenuRequested(const QPoint &pos
     delete deleteSeed;
     delete clearSeeds;
 }
-
 void MainWindow::on_listWidgetGroups_customContextMenuRequested(const QPoint &pos)
 {
     QListWidgetItem* curItem = ui->listWidgetGroups->itemAt( pos );
@@ -219,3 +228,4 @@ void MainWindow::on_listWidgetGroups_customContextMenuRequested(const QPoint &po
     delete deleteSeed;
     delete clearSeeds;
 }
+

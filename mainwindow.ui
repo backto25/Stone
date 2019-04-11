@@ -420,7 +420,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>134</width>
+         <width>132</width>
          <height>20</height>
         </size>
        </property>
@@ -438,8 +438,14 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_5">
-     <item row="0" column="0">
-      <widget class="QTextBrowser" name="textBrowser"/>
+     <item row="0" column="1">
+      <widget class="QStackedWidget" name="stackedWidget">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="page"/>
+       <widget class="QWidget" name="page_2"/>
+      </widget>
      </item>
     </layout>
    </widget>
