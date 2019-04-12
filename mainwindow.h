@@ -46,6 +46,7 @@ private slots:
     bool shutDown_firstStep();
     void on_listWidgetStaff_customContextMenuRequested(const QPoint &pos);
     void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
+    void deleteCurrentGroupSlot();
 
 private:
     Ui::MainWindow *ui;//Qt设计师
