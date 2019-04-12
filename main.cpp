@@ -3,21 +3,33 @@
 #include <QSqlDatabase>
 #include <QMessageBox>
 #include <QSqlError>
+#include <QSharedMemory>
 
 bool connectDB();
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    if( connectDB() )
-    {
-        contentProvider->flashAllBySQL();
-        MainWindow w;
-        w.show();
+    a.setApplicationName("MM");
 
-
-        return a.exec();
+    //创建共享内存,判断是否已经运行程序
+    QSharedMemory mem("VM");
+    if (!mem.create(1)) {
+        QMessageBox::warning(NULL, "警告", "程序已运行,软件将自动关闭!");
+        return 1;
     }
+
+    if( !connectDB() )
+        return 1;
+
+
+    contentProvider->flashAllBySQL();
+    MainWindow w;
+    w.show();
+
+
+    return a.exec();
+
     return 0;
 }
 
