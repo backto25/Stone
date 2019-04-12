@@ -22,7 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
+
+
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -145,6 +148,14 @@ bool MainWindow::pushPcToList(QList<QToolButton*> *pList)
     pList->append(ui->toolButtonPC_10);
     pList->append(ui->toolButtonPC_11);
     pList->append(ui->toolButtonPC_12);
+    pList->append(ui->toolButtonPC_13);
+    pList->append(ui->toolButtonPC_14);
+    pList->append(ui->toolButtonPC_15);
+    pList->append(ui->toolButtonPC_16);
+    pList->append(ui->toolButtonPC_17);
+    pList->append(ui->toolButtonPC_18);
+    pList->append(ui->toolButtonPC_19);
+    pList->append(ui->toolButtonPC_20);
 
     return true;
 }
