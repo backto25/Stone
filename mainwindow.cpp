@@ -22,10 +22,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pushPcToList(pcList);
 
+<<<<<<< HEAD
     QUdpSocket *udpSocket = new QUdpSocket(this);
 
     udpSocket->bind(23333);
     connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
+=======
+//    QUdpSocket *udpSocket = new QUdpSocket(this);
+
+//    udpSocket->bind(23333);
+//    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
+>>>>>>> e800a0efe323a8f2ca33781468f22a29b3aa1ab6
 
     updateView();
 
