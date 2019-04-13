@@ -9,6 +9,7 @@
 #include <QAction>
 #include <QContextMenuEvent>
 #include <QKeyEvent>
+#include <QUdpSocket>
 
 
 #include "newgroup.h"
@@ -49,12 +50,14 @@ private slots:
     void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
     void deleteCurrentGroupSlot();
     void dealMsg();
+    void showPc_01();
 
 private:
     Ui::MainWindow *ui;//Qt设计师
     NewGroup *newGroupFirstStep;//新建分组窗口第一步
     NewGroupSecondStep *newGroupSecondStep;//新建分组窗口第二步
     QList<QToolButton*> *pcList;//保存ui上的电脑实体，方便管理
+    QUdpSocket *udpSocket;
 
 };
 

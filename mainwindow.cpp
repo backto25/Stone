@@ -5,7 +5,7 @@
 #include <QListWidgetItem>
 #include <QEvent>
 #include<QMessageBox>
-#include <QUdpSocket>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pushPcToList(pcList);
 
 
-    QUdpSocket *udpSocket = new QUdpSocket(this);
+    udpSocket = new QUdpSocket(this);
     udpSocket->bind(23333);
     connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
 
@@ -28,6 +28,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
+
+    {
+        connect(ui->toolButtonPC_1, SIGNAL(clicked()), this, SLOT(showPc_01()));
+
+    }
 
 
 }
@@ -132,7 +137,21 @@ bool MainWindow::updateStaffBoxView(){
     return true;
 }
 bool MainWindow::updatePcInfo(){
-    qDebug()<<"UDP";
+
+    char buf[32] = {0};
+    QHostAddress cliAddr; //对方地址
+    quint16 port;    //对方端口
+    qint64 len = udpSocket->readDatagram(buf, sizeof(buf), &cliAddr, &port);
+    if(len > 0)
+    {
+        //格式化 [192.68.2.2:8888]
+        QString str = QString("[%1:%2]").arg(cliAddr.toString()) .arg(port);
+        QString info = QString("%1").arg(buf);
+        QStringList list = info.split(" ");
+        ui->progressBar_mem->setValue(list[0].toInt());
+        ui->progressBar_cpu->setValue(list[1].toDouble());
+        ui->progressBar_netspeed->setValue(list[2].toDouble());
+    }
 }
 
 void MainWindow::screen_full(){
@@ -283,4 +302,7 @@ void MainWindow::deleteCurrentGroupSlot()
 }
 void MainWindow::dealMsg(){
     this->updatePcInfo();
+}
+void MainWindow::showPc_01(){
+
 }
