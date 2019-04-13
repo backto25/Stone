@@ -88,7 +88,7 @@ bool GroupModel::addOneGroup(Group group){
 
 bool GroupModel::rmOneGroup(int index){
     QSqlQuery sqlQuery;
-    if(!sqlQuery.exec(QString("delete from 'group' where group_id = '%1' ")
+    if(!sqlQuery.exec(QString("delete from `group` where group_id = '%1' ")
                       .arg(groups[index].group_id)))
         return false;
     groups.remove(index);

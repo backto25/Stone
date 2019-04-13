@@ -27,12 +27,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     bool pushPcToList(QList<QToolButton*> *pList);//保存ui上的电脑实体，方便管理
+
     //视图更新
     bool updateView();//更新整个UI
     bool updateGroupBoxView();//更新分组管理视图
     bool updatePcBoxView();//更新台位视图
     bool updateStaffBoxView();//更新人员表视图
-
+    bool updatePcInfo();
     void screen_full();
     void screen_normal();
 
@@ -46,6 +47,8 @@ private slots:
     bool shutDown_firstStep();
     void on_listWidgetStaff_customContextMenuRequested(const QPoint &pos);
     void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
+    void deleteCurrentGroupSlot();
+    void dealMsg();
 
 private:
     Ui::MainWindow *ui;//Qt设计师

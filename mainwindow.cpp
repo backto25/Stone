@@ -1,9 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <computerchat.h>
 #include<QDebug>
 #include <QHBoxLayout>
 #include <QListWidgetItem>
 #include <QEvent>
+#include<QMessageBox>
+#include <QUdpSocket>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,8 +17,15 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupSecondStep = new NewGroupSecondStep();
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
+    ComputerChat cc;
+    cc.start();
 
     pushPcToList(pcList);
+
+    QUdpSocket *udpSocket = new QUdpSocket(this);
+
+    udpSocket->bind(23333);
+    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
 
     updateView();
 
@@ -78,6 +88,7 @@ bool MainWindow::updatePcBoxView()
 {
     GroupModel &groupModel = contentProvider->group_model;
     ComputerModel &computerModel = contentProvider->computer_model;
+
     for(int i = 0; i < groupModel.size(); ++i)
     {
         QVector<int> temp = groupModel.getGroupByIndex(i).computers;
@@ -90,6 +101,7 @@ bool MainWindow::updatePcBoxView()
             }
         }
     }
+
     return true;
 }
 bool MainWindow::updateStaffBoxView(){
@@ -123,6 +135,10 @@ bool MainWindow::updateStaffBoxView(){
     }
     return true;
 }
+bool MainWindow::updatePcInfo(){
+    qDebug()<<"UDP";
+}
+
 void MainWindow::screen_full(){
     this->showFullScreen();
 }
@@ -211,8 +227,8 @@ void MainWindow::on_listWidgetStaff_customContextMenuRequested(const QPoint &pos
     popMenu->addAction( editSeed );
     popMenu->addAction( deleteSeed );
     popMenu->addAction( clearSeeds );
-//    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteSeedSlot()) );
-//    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
+    //    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteSeedSlot()) );
+    //    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
     popMenu->exec( QCursor::pos() );
     delete popMenu;
     delete editSeed;
@@ -232,12 +248,43 @@ void MainWindow::on_listWidgetGroups_customContextMenuRequested(const QPoint &po
     popMenu->addAction( editSeed );
     popMenu->addAction( deleteSeed );
     popMenu->addAction( clearSeeds );
-//    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteSeedSlot()) );
-//    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
+    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteCurrentGroupSlot()) );
+    //    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
     popMenu->exec( QCursor::pos() );
     delete popMenu;
     delete editSeed;
     delete deleteSeed;
     delete clearSeeds;
 }
+void MainWindow::deleteCurrentGroupSlot()
+{
+    int ch = QMessageBox::warning(NULL, "警告",
+                                  "您确定要删除所选组 ?",
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No);
 
+    if ( ch != QMessageBox::Yes )
+        return;
+
+    QListWidgetItem * item = ui->listWidgetGroups->currentItem();
+    if( item == NULL )
+        return;
+
+    GroupModel &groupModel = contentProvider->group_model;
+    int curIndex = ui->listWidgetGroups->row(item);
+    if(groupModel.rmOneGroup(curIndex)){
+        QMessageBox::about(NULL, "提示", "删除成功");
+        for(int i = 0; i <pcList->size(); ++i){
+            pcList->at(i)->setStyleSheet("QPushButton{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(214, 214, 214, 255), stop:0.5 rgba(236, 236, 236, 255));border: 1px solid rgb(124, 124, 124);border-radius:2px;}"
+                                         "QPushButton:pressed{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(134, 198, 233, 255), stop:0.5 rgba(206, 234, 248, 255));border-radius:2px;border: 1px solid #5F92B2;}"
+                                         "QPushButton:hover{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(181, 225, 250, 255), stop:0.5 rgba(222, 242, 251, 255));border-radius:2px;border: 1px solid #3C80B1;}"
+                                         );
+        }
+        this->updateView();
+    }
+    else
+        QMessageBox::about(NULL, "提示", "删除失败");
+}
+void MainWindow::dealMsg(){
+    this->updatePcInfo();
+}
