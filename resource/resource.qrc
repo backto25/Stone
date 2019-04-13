@@ -2,4 +2,9 @@
     <qresource prefix="/image">
         <file>PCIcon.jpg</file>
     </qresource>
+    <qresource prefix="/">
+        <file>shutdown.jpg</file>
+        <file>Inkedshutdown02_LI.jpg</file>
+        <file>shutdown03.jpg</file>
+    </qresource>
 </RCC>
