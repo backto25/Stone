@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSharedMemory>
-#include <computerchat.h>
 
 bool connectDB();
 

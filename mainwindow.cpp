@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <computerchat.h>
 #include<QDebug>
 #include <QHBoxLayout>
 #include <QListWidgetItem>
@@ -17,22 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupSecondStep = new NewGroupSecondStep();
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
-    ComputerChat cc;
-    cc.start();
-
     pushPcToList(pcList);
 
-<<<<<<< HEAD
-    QUdpSocket *udpSocket = new QUdpSocket(this);
 
+    QUdpSocket *udpSocket = new QUdpSocket(this);
     udpSocket->bind(23333);
     connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
-=======
-//    QUdpSocket *udpSocket = new QUdpSocket(this);
-
-//    udpSocket->bind(23333);
-//    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
->>>>>>> e800a0efe323a8f2ca33781468f22a29b3aa1ab6
 
     updateView();
 

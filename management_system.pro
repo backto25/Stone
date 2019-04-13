@@ -19,8 +19,7 @@ SOURCES += main.cpp\
     GroupModel.cpp \
     ComputerModel.cpp \
     ContentProvider.cpp \
-    newgroupsecondstep.cpp \
-    computerchat.cpp
+    newgroupsecondstep.cpp
 
 HEADERS  += mainwindow.h \
     newgroup.h \
@@ -28,8 +27,7 @@ HEADERS  += mainwindow.h \
     StaffModel.h \
     GroupModel.h \
     ComputerModel.h \
-    newgroupsecondstep.h \
-    computerchat.h
+    newgroupsecondstep.h
 
 FORMS    += mainwindow.ui \
     newgroup.ui \
