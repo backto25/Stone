@@ -1,10 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <computerchat.h>
 #include<QDebug>
 #include <QHBoxLayout>
 #include <QListWidgetItem>
 #include <QEvent>
 #include<QMessageBox>
+#include <QUdpSocket>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,8 +17,15 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupSecondStep = new NewGroupSecondStep();
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
+    ComputerChat cc;
+    cc.start();
 
     pushPcToList(pcList);
+
+//    QUdpSocket *udpSocket = new QUdpSocket(this);
+
+//    udpSocket->bind(23333);
+//    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
 
     updateView();
 
@@ -126,6 +135,10 @@ bool MainWindow::updateStaffBoxView(){
     }
     return true;
 }
+bool MainWindow::updatePcInfo(){
+    qDebug()<<"UDP";
+}
+
 void MainWindow::screen_full(){
     this->showFullScreen();
 }
@@ -271,4 +284,7 @@ void MainWindow::deleteCurrentGroupSlot()
     }
     else
         QMessageBox::about(NULL, "提示", "删除失败");
+}
+void MainWindow::dealMsg(){
+    this->updatePcInfo();
 }

@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSharedMemory>
+#include <computerchat.h>
 
 bool connectDB();
 
@@ -24,10 +25,9 @@ int main(int argc, char *argv[])
 
 
     contentProvider->flashAllBySQL();
+
     MainWindow w;
     w.show();
-
-
     return a.exec();
 
     return 0;
