@@ -50,6 +50,7 @@ bool MainWindow::updateView()
     this->updatePcBoxView();
     this->updateStaffBoxView();
     this->updatePcAnotherHalfInfo();
+    //groupdetailinfo手动控制更新
 }
 bool MainWindow::updateGroupBoxView()
 {
@@ -180,8 +181,8 @@ bool MainWindow::updatePcAnotherHalfInfo(){
 }
 bool MainWindow::updateDetailGroupInfo(){
     QListWidgetItem * item = ui->listWidgetGroups->currentItem();
-    qDebug()<<ui->listWidgetGroups->row(item);
-    qDebug()<<item;
+//    qDebug()<<ui->listWidgetGroups->row(item);
+//    qDebug()<<item;
     if( item == NULL ){
         ui->label_zuhao->setText("No relevant information");
         ui->label_zuming->setText("No relevant information");
