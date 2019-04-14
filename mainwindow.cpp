@@ -18,11 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     pcList = new QList<QToolButton*>;
     pushPcToList(pcList);
 
-
-    udpSocket = new QUdpSocket(this);
-    udpSocket->bind(23333);
-    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
-
     updateView();
 
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
@@ -30,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
 
     {
+        udpSocket = new QUdpSocket(this);
+        connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
         connect(ui->toolButtonPC_1, SIGNAL(clicked()), this, SLOT(showPc_01()));
 
     }
@@ -305,4 +302,12 @@ void MainWindow::dealMsg(){
 }
 void MainWindow::showPc_01(){
 
+    udpSocket->bind(23333);
+    ui->label_taiwei->setText("台位01");
+    GroupModel &groupModel = contentProvider->group_model;
+    int groupId = groupModel.whichGroupIsComputerIncluded(1);
+    if(groupId != 0){
+        QString groupName = groupModel.getGroupById(groupId).group_name;
+        ui->label_xiaozu->setText(groupName);
+    }
 }

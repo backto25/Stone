@@ -37,6 +37,12 @@ Group GroupModel::getGroupByIndex(int index)const{
     return groups[index];
 }
 
+Group GroupModel::getGroupById(int Id) const{
+    for(int i = 0; i < this->size(); ++i){
+        if(this->getGroupByIndex(i).group_id == Id)
+            return getGroupByIndex(i);
+    }
+}
 QVector<int> GroupModel::findByType(int type){
     QVector<int> ret;
     QVector<Group>::iterator it;
@@ -183,6 +189,16 @@ bool GroupModel::isComputerIncluded(int computerId){
     return find;
 }
 
+int GroupModel::whichGroupIsComputerIncluded(int computerId){
+    int groupId = 0;
+    for(int i = 0; i  < this->size(); ++i){
+        if(this->getGroupByIndex(i).isComputerIncluded(computerId)){
+            groupId = getGroupByIndex(i).group_id;
+            break;
+        }
+    }
+    return groupId;
+}
 
 /*  ************************************
 class ComputerModel for QAbstractTableModel

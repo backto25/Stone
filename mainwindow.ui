@@ -608,7 +608,7 @@
        <item>
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>TextLabel</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>
@@ -639,7 +639,7 @@
        <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>TextLabel</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>
@@ -670,7 +670,7 @@
        <item>
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>TextLabel</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>
@@ -745,9 +745,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_18">
+        <widget class="QLabel" name="label_taiwei">
          <property name="text">
-          <string>台位01</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>
@@ -776,9 +776,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_12">
+        <widget class="QLabel" name="label_renyuan">
          <property name="text">
-          <string>jason</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>
@@ -807,9 +807,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_14">
+        <widget class="QLabel" name="label_xiaozu">
          <property name="text">
-          <string>A组</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>
@@ -838,9 +838,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_16">
+        <widget class="QLabel" name="label_juese">
          <property name="text">
-          <string>组长</string>
+          <string>No relevant information</string>
          </property>
         </widget>
        </item>

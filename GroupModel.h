@@ -47,11 +47,13 @@ public:
     int findIndexById(int id);
     QVector<int> findByType(int type);
     Group getGroupByIndex(int index) const;
+    Group getGroupById(int Id) const;
     bool addOneGroup(Group group);
     bool rmOneGroup(int index);
     int size()const;
     bool isStaffIncluded(int staffId);
     bool isComputerIncluded(int computerId);
+    int whichGroupIsComputerIncluded(int computerId);
 
     bool flashBySQL();
     bool updateOne(int id);
