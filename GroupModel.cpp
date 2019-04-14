@@ -14,6 +14,10 @@ bool Group::isComputerIncluded(int computerId){
     return computers.contains(computerId);
 }
 
+int Group::computerIndexInsideGroup(int computerId){
+    return computers.indexOf(computerId);
+}
+
 /*  ************************************
 class GroupModel
 ************************************  */

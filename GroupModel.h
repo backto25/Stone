@@ -25,6 +25,7 @@ public:
 
     bool isStaffIncluded(int staffId);
     bool isComputerIncluded(int computerId);
+    int computerIndexInsideGroup(int computerId);
 };
 /*  ************************************
 ************************************  */

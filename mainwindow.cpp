@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     newGroupSecondStep = new NewGroupSecondStep();
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
+    udpSocket = new QUdpSocket(this);
+    udpSocket->bind(23333);
     pushPcToList(pcList);
 
     updateView();
@@ -23,14 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newGroupFirstStep, SIGNAL(askFor_addGroup_secondStep()), this, SLOT(addGroup_secondStep_choosePc()));
     connect(newGroupSecondStep, SIGNAL(backTo_addGroup_firstStep()), this, SLOT(backTo_firstStep_chooseStaff()));
     connect(newGroupSecondStep, SIGNAL(shutDown_firstStep()), this, SLOT(shutDown_firstStep()));
-
-    {
-        udpSocket = new QUdpSocket(this);
-        connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
-        connect(ui->toolButtonPC_1, SIGNAL(clicked()), this, SLOT(showPc_01()));
-
+    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(dealMsg()));
+    for(int i = 0; i <pcList->size(); ++i){
+        connect(pcList->at(i), SIGNAL(clicked()), this, SLOT(showDetailPcInfo()));
     }
-
 
 }
 
@@ -139,18 +137,34 @@ bool MainWindow::updatePcInfo(){
     QHostAddress cliAddr; //对方地址
     quint16 port;    //对方端口
     qint64 len = udpSocket->readDatagram(buf, sizeof(buf), &cliAddr, &port);
-    if(len > 0)
-    {
-        //格式化 [192.68.2.2:8888]
-        QString str = QString("[%1:%2]").arg(cliAddr.toString()) .arg(port);
-        QString info = QString("%1").arg(buf);
-        QStringList list = info.split(" ");
-        ui->progressBar_mem->setValue(list[0].toInt());
-        ui->progressBar_cpu->setValue(list[1].toDouble());
-        ui->progressBar_netspeed->setValue(list[2].toDouble());
+    if(len <= 0)
+        return false;
+    for(int i = 0; i < pcList->size(); ++i){
+        if(ui->label_taiwei->text() == QString("台位%1").arg(i+1)){
+            //格式化 [192.68.2.2:8888]
+            QString str = QString("[%1:%2]").arg(cliAddr.toString()) .arg(port);
+            QString info = QString("%1").arg(buf);
+            QStringList list = info.split(" ");
+            if(list[0].toInt() == (i+1)){
+                ui->progressBar_mem->setValue(list[1].toInt());
+                ui->progressBar_cpu->setValue(list[2].toDouble());
+                ui->progressBar_netspeed->setValue(list[3].toDouble());
+            }
+
+        }
     }
 }
-
+bool MainWindow::updateDetailGroupInfo(){
+    QListWidgetItem * item = ui->listWidgetGroups->currentItem();
+    if( item == NULL )
+        return false;
+    GroupModel &groupModel = contentProvider->group_model;
+    int curIndex = ui->listWidgetGroups->row(item);
+    ui->label_zuhao->setText(QString("%1").arg(curIndex + 1));
+    ui->label_zuming->setText(groupModel.getGroupByIndex(curIndex).group_name);
+    ui->label_zuse->setText("                      ");
+    ui->label_zuse->setStyleSheet(ColorSetA[groupModel.getGroupByIndex(curIndex).group_id%5]);
+}
 void MainWindow::screen_full(){
     this->showFullScreen();
 }
@@ -254,16 +268,20 @@ void MainWindow::on_listWidgetGroups_customContextMenuRequested(const QPoint &po
         return;
 
     QMenu *popMenu = new QMenu( this );
+    QAction *showSeed = new QAction(tr("查看详情"), this);
     QAction *editSeed = new QAction(tr("编辑当前组"), this);
     QAction *deleteSeed = new QAction(tr("删除当前组"), this);
     QAction *clearSeeds = new QAction(tr("清空所有组"), this);
+    popMenu->addAction( showSeed );
     popMenu->addAction( editSeed );
     popMenu->addAction( deleteSeed );
     popMenu->addAction( clearSeeds );
     connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteCurrentGroupSlot()) );
+    connect( showSeed, SIGNAL(triggered() ), this, SLOT( showDetailGroupInfo()) );
     //    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
     popMenu->exec( QCursor::pos() );
     delete popMenu;
+    delete showSeed;
     delete editSeed;
     delete deleteSeed;
     delete clearSeeds;
@@ -300,14 +318,37 @@ void MainWindow::deleteCurrentGroupSlot()
 void MainWindow::dealMsg(){
     this->updatePcInfo();
 }
-void MainWindow::showPc_01(){
-
-    udpSocket->bind(23333);
-    ui->label_taiwei->setText("台位01");
+void MainWindow::showDetailPcInfo(){
+    QToolButton *btn  = qobject_cast<QToolButton*>(sender());
     GroupModel &groupModel = contentProvider->group_model;
-    int groupId = groupModel.whichGroupIsComputerIncluded(1);
-    if(groupId != 0){
-        QString groupName = groupModel.getGroupById(groupId).group_name;
-        ui->label_xiaozu->setText(groupName);
+    StaffModel &staffModel =contentProvider->staff_model;
+
+    for(int i =0; i < pcList->size(); ++i){
+        if(QString("toolButtonPC_%1").arg(i+1) == btn->objectName()){
+            ui->label_taiwei->setText(QString("台位%1").arg(i+1));
+            int groupId = groupModel.whichGroupIsComputerIncluded(i+1);
+            if(groupId != 0){
+                QString groupName = groupModel.getGroupById(groupId).group_name;
+                ui->label_xiaozu->setText(groupName);
+                int insideIndex = groupModel.getGroupById(groupId).computerIndexInsideGroup(i+1);
+                int staffId = groupModel.getGroupById(groupId).staffs[insideIndex];
+                int staffIndex = staffModel.findIndexById(staffId);
+                ui->label_renyuan->setText(staffModel.getStaffByIndex(staffIndex).staff_name);
+            }
+            else
+                ui->label_xiaozu->setText("未分组");
+        }
     }
+    ui->progressBar_mem->setValue(0);
+    ui->progressBar_cpu->setValue(0);
+    ui->progressBar_netspeed->setValue(0);
+}
+void MainWindow::showDetailGroupInfo(){
+
+    this->updateDetailGroupInfo();
+}
+
+void MainWindow::on_listWidgetGroups_clicked(const QModelIndex &index)
+{
+    this->updateDetailGroupInfo();
 }

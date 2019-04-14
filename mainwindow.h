@@ -35,6 +35,7 @@ public:
     bool updatePcBoxView();//更新台位视图
     bool updateStaffBoxView();//更新人员表视图
     bool updatePcInfo();
+    bool updateDetailGroupInfo();
     void screen_full();
     void screen_normal();
 
@@ -50,7 +51,10 @@ private slots:
     void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
     void deleteCurrentGroupSlot();
     void dealMsg();
-    void showPc_01();
+    void showDetailPcInfo();
+    void showDetailGroupInfo();
+
+    void on_listWidgetGroups_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;//Qt设计师
