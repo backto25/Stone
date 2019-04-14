@@ -50,6 +50,7 @@ bool MainWindow::updateView()
     this->updatePcBoxView();
     this->updateStaffBoxView();
     this->updatePcAnotherHalfInfo();
+    this->updateDetailGroupInfo();
     //groupdetailinfo手动控制更新
 }
 bool MainWindow::updateGroupBoxView()
@@ -167,6 +168,8 @@ bool MainWindow::updatePcAnotherHalfInfo(){
             if(groupId != 0){
                 QString groupName = groupModel.getGroupById(groupId).group_name;
                 ui->label_xiaozu->setText(groupName);
+                ui->label_yanse->setText("                      ");
+                ui->label_yanse->setStyleSheet(ColorSetA[groupId%5]);
                 int insideIndex = groupModel.getGroupById(groupId).computerIndexInsideGroup(i+1);
                 int staffId = groupModel.getGroupById(groupId).staffs[insideIndex];
                 int staffIndex = staffModel.findIndexById(staffId);
@@ -174,6 +177,8 @@ bool MainWindow::updatePcAnotherHalfInfo(){
             }
             else{
                 ui->label_xiaozu->setText("未分组");
+                ui->label_yanse->setText("No relevant information");
+                ui->label_yanse->setStyleSheet("background-color: rgba(255, 255, 0, 0);");
                 ui->label_renyuan->setText("暂无人员");
             }
         }
@@ -202,11 +207,15 @@ bool MainWindow::updateDetailGroupInfo(){
     for(int i =0; i < groupModel.getGroupByIndex(curIndex).staffs.size(); ++i){
         int staffId = groupModel.getGroupByIndex(curIndex).staffs[i];
         QString staffName = staffModel.getStaffByIndex(staffModel.findIndexById(staffId)).staff_name;
-        qDebug()<<staffName;
+        int computerId = groupModel.getGroupByIndex(curIndex).computers[i];
         QTableWidgetItem * sItem = new QTableWidgetItem();
+        QTableWidgetItem * pItem = new QTableWidgetItem();
         sItem->setText(staffName);
-//        sItem->setFlags(Qt::NoItemFlags)
+        pItem->setText(QString("台位%1").arg(computerId));
+        sItem->setFlags(Qt::NoItemFlags);
+        pItem->setFlags(Qt::NoItemFlags);
         ui->tableWidget->setItem(i, 0, sItem);
+        ui->tableWidget->setItem(i, 1, pItem);
     }
 }
 void MainWindow::screen_full(){
@@ -297,8 +306,9 @@ void MainWindow::on_listWidgetStaff_customContextMenuRequested(const QPoint &pos
     popMenu->addAction( editSeed );
     popMenu->addAction( deleteSeed );
     popMenu->addAction( clearSeeds );
-    //    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteSeedSlot()) );
-    //    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
+    connect( editSeed, SIGNAL(triggered() ), this, SLOT( unavailable()) );
+    connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( unavailable()) );
+    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( unavailable()) );
     popMenu->exec( QCursor::pos() );
     delete popMenu;
     delete editSeed;
@@ -320,9 +330,10 @@ void MainWindow::on_listWidgetGroups_customContextMenuRequested(const QPoint &po
     popMenu->addAction( editSeed );
     popMenu->addAction( deleteSeed );
     popMenu->addAction( clearSeeds );
+    connect( editSeed, SIGNAL(triggered() ), this, SLOT( editCurrentGroupSlot()) );
     connect( deleteSeed, SIGNAL(triggered() ), this, SLOT( deleteCurrentGroupSlot()) );
-    connect( showSeed, SIGNAL(triggered() ), this, SLOT( showDetailGroupInfo()) );
-    //    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearSeedsSlot()) );
+    connect( showSeed, SIGNAL(triggered() ), this, SLOT( showDetailGroupInfoSlot()) );
+    connect( clearSeeds, SIGNAL(triggered() ), this, SLOT( clearCurrentGroupSlot()) );
     popMenu->exec( QCursor::pos() );
     delete popMenu;
     delete showSeed;
@@ -347,7 +358,6 @@ void MainWindow::deleteCurrentGroupSlot()
     GroupModel &groupModel = contentProvider->group_model;
     int curIndex = ui->listWidgetGroups->row(item);
     if(groupModel.rmOneGroup(curIndex)){
-        QMessageBox::about(NULL, "提示", "删除成功");
         for(int i = 0; i <pcList->size(); ++i){
             pcList->at(i)->setStyleSheet("QPushButton{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(214, 214, 214, 255), stop:0.5 rgba(236, 236, 236, 255));border: 1px solid rgb(124, 124, 124);border-radius:2px;}"
                                          "QPushButton:pressed{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(134, 198, 233, 255), stop:0.5 rgba(206, 234, 248, 255));border-radius:2px;border: 1px solid #5F92B2;}"
@@ -355,10 +365,37 @@ void MainWindow::deleteCurrentGroupSlot()
                                          );
         }
         this->updateView();
-        this->updateDetailGroupInfo();
+        QMessageBox::about(NULL, "提示", "删除成功");
     }
     else
-        QMessageBox::about(NULL, "提示", "删除失败");
+        QMessageBox::about(NULL, "提示", "删除失败！");
+}
+void MainWindow::editCurrentGroupSlot(){
+   QMessageBox::about(NULL, "提示", "功能暂未开放！");
+}
+void MainWindow::clearCurrentGroupSlot(){
+    int ch = QMessageBox::warning(NULL, "警告",
+                                  "您确定要清空所有组 ?该操作不可撤销！",
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No);
+
+    if ( ch != QMessageBox::Yes )
+        return;
+    GroupModel &groupModel = contentProvider->group_model;
+    if(groupModel.clearAllGroup()){
+
+        for(int i = 0; i <pcList->size(); ++i){
+            pcList->at(i)->setStyleSheet("QPushButton{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(214, 214, 214, 255), stop:0.5 rgba(236, 236, 236, 255));border: 1px solid rgb(124, 124, 124);border-radius:2px;}"
+                                         "QPushButton:pressed{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(134, 198, 233, 255), stop:0.5 rgba(206, 234, 248, 255));border-radius:2px;border: 1px solid #5F92B2;}"
+                                         "QPushButton:hover{background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(181, 225, 250, 255), stop:0.5 rgba(222, 242, 251, 255));border-radius:2px;border: 1px solid #3C80B1;}"
+                                         );
+            }
+        this->updateView();
+        QMessageBox::about(NULL, "提示", "已清空所有组！");
+    }
+        else
+            QMessageBox::about(NULL, "提示", "操作失败！");
+
 }
 void MainWindow::dealMsg(){
     this->updatePcHalfInfo();
@@ -375,12 +412,55 @@ void MainWindow::showDetailPcInfo(){
     ui->progressBar_cpu->setValue(0);
     ui->progressBar_netspeed->setValue(0);
 }
-void MainWindow::showDetailGroupInfo(){
+void MainWindow::showDetailGroupInfoSlot(){
 
     this->updateDetailGroupInfo();
 }
-
 void MainWindow::on_listWidgetGroups_clicked(const QModelIndex &index)
 {
     this->updateDetailGroupInfo();
+}
+void MainWindow::on_pushButton_clicked()
+{
+    QMessageBox::about(NULL, "提示", "添加人员需要管理员权限！");
+}
+void MainWindow::unavailable(){
+    QMessageBox::about(NULL, "提示", "人员管理需要管理员权限！");
+}
+void MainWindow::on_toolButton_clicked()
+{
+    if(ui->label_taiwei->text() == "No relevant information"){
+        QMessageBox::about(NULL, "提示", "未选定计算机！");
+        return;
+    }
+    int ch = QMessageBox::warning(NULL, "警告",
+                                  "您确定要关闭当前计算机 ?",
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No);
+
+    if ( ch != QMessageBox::Yes )
+        return;
+    QMessageBox::about(NULL, "提示", "已关闭" +ui->label_taiwei->text() + "!");
+}
+void MainWindow::on_toolButtonPC_1_customContextMenuRequested(const QPoint &pos)
+{
+    QMenu *popMenu = new QMenu( this );
+    QAction *turnoffSeed = new QAction(tr("关机"), this);
+    popMenu->addAction(turnoffSeed);
+//    connect( turnoffSeed, SIGNAL(triggered() ), this, SLOT( editCurrentGroupSlot()) );
+    popMenu->exec( QCursor::pos() );
+    delete popMenu;
+    delete turnoffSeed;
+}
+void MainWindow::on_toolButtonPC_2_customContextMenuRequested(const QPoint &pos)
+{
+
+}
+void MainWindow::on_toolButtonPC_3_customContextMenuRequested(const QPoint &pos)
+{
+
+}
+void MainWindow::on_toolButtonPC_4_customContextMenuRequested(const QPoint &pos)
+{
+
 }

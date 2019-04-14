@@ -50,6 +50,7 @@ public:
     Group getGroupByIndex(int index) const;
     Group getGroupById(int Id) const;
     bool addOneGroup(Group group);
+    bool clearAllGroup();
     bool rmOneGroup(int index);
     int size()const;
     bool isStaffIncluded(int staffId);

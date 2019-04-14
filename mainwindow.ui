@@ -20,6 +20,12 @@
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
      <widget class="QFrame" name="frame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -41,6 +47,9 @@
        </property>
        <item row="0" column="0">
         <widget class="QToolButton" name="toolButtonPC_1">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位01</string>
          </property>
@@ -61,6 +70,9 @@
        </item>
        <item row="0" column="1">
         <widget class="QToolButton" name="toolButtonPC_2">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位02</string>
          </property>
@@ -81,6 +93,9 @@
        </item>
        <item row="0" column="2">
         <widget class="QToolButton" name="toolButtonPC_3">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位03</string>
          </property>
@@ -101,6 +116,9 @@
        </item>
        <item row="0" column="3">
         <widget class="QToolButton" name="toolButtonPC_4">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位04</string>
          </property>
@@ -121,6 +139,9 @@
        </item>
        <item row="1" column="0">
         <widget class="QToolButton" name="toolButtonPC_5">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位05</string>
          </property>
@@ -141,6 +162,9 @@
        </item>
        <item row="1" column="1">
         <widget class="QToolButton" name="toolButtonPC_6">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位06</string>
          </property>
@@ -161,6 +185,9 @@
        </item>
        <item row="1" column="2">
         <widget class="QToolButton" name="toolButtonPC_7">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位07</string>
          </property>
@@ -181,6 +208,9 @@
        </item>
        <item row="1" column="3">
         <widget class="QToolButton" name="toolButtonPC_8">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位08</string>
          </property>
@@ -201,6 +231,9 @@
        </item>
        <item row="2" column="0">
         <widget class="QToolButton" name="toolButtonPC_9">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位09</string>
          </property>
@@ -221,6 +254,9 @@
        </item>
        <item row="2" column="1">
         <widget class="QToolButton" name="toolButtonPC_10">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位10</string>
          </property>
@@ -241,6 +277,9 @@
        </item>
        <item row="2" column="2">
         <widget class="QToolButton" name="toolButtonPC_11">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位11</string>
          </property>
@@ -261,6 +300,9 @@
        </item>
        <item row="2" column="3">
         <widget class="QToolButton" name="toolButtonPC_12">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位12</string>
          </property>
@@ -281,6 +323,9 @@
        </item>
        <item row="3" column="0">
         <widget class="QToolButton" name="toolButtonPC_13">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位13</string>
          </property>
@@ -301,6 +346,9 @@
        </item>
        <item row="3" column="1">
         <widget class="QToolButton" name="toolButtonPC_14">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位14</string>
          </property>
@@ -321,6 +369,9 @@
        </item>
        <item row="3" column="2">
         <widget class="QToolButton" name="toolButtonPC_15">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位15</string>
          </property>
@@ -341,6 +392,9 @@
        </item>
        <item row="3" column="3">
         <widget class="QToolButton" name="toolButtonPC_16">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位16</string>
          </property>
@@ -361,6 +415,9 @@
        </item>
        <item row="4" column="0">
         <widget class="QToolButton" name="toolButtonPC_17">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位17</string>
          </property>
@@ -381,6 +438,9 @@
        </item>
        <item row="4" column="1">
         <widget class="QToolButton" name="toolButtonPC_18">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位18</string>
          </property>
@@ -401,6 +461,9 @@
        </item>
        <item row="4" column="2">
         <widget class="QToolButton" name="toolButtonPC_19">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位19</string>
          </property>
@@ -421,6 +484,9 @@
        </item>
        <item row="4" column="3">
         <widget class="QToolButton" name="toolButtonPC_20">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="text">
           <string>台位20</string>
          </property>
@@ -588,6 +654,12 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidgetGroupInfo">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="windowTitle">
     <string>组基本信息</string>
    </property>
@@ -722,6 +794,12 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidgetPosition">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="windowIcon">
     <iconset theme="台位详情">
      <normaloff/>
@@ -734,7 +812,7 @@
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_4">
-    <layout class="QGridLayout" name="gridLayout_7">
+    <layout class="QGridLayout" name="gridLayout_5">
      <item row="0" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
@@ -829,6 +907,37 @@
       </layout>
      </item>
      <item row="3" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>颜色：</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_yanse">
+         <property name="text">
+          <string>No relevant information</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>65</width>
+           <height>17</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
         <widget class="QLabel" name="label_15">
@@ -859,7 +968,7 @@
        </item>
       </layout>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_10">
        <item>
         <widget class="QLabel" name="label_17">
@@ -883,7 +992,7 @@
        </item>
       </layout>
      </item>
-     <item row="5" column="0">
+     <item row="6" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_11">
        <item>
         <widget class="QLabel" name="label_20">
@@ -901,7 +1010,7 @@
        </item>
       </layout>
      </item>
-     <item row="6" column="0">
+     <item row="7" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_12">
        <item>
         <widget class="QLabel" name="label_21">
@@ -919,7 +1028,7 @@
        </item>
       </layout>
      </item>
-     <item row="7" column="0">
+     <item row="8" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_13">
        <item>
         <widget class="QLabel" name="label_22">
@@ -937,7 +1046,7 @@
        </item>
       </layout>
      </item>
-     <item row="8" column="0">
+     <item row="9" column="0">
       <widget class="QToolButton" name="toolButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">

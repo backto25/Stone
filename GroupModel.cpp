@@ -105,6 +105,14 @@ bool GroupModel::rmOneGroup(int index){
     return true;
 }
 
+bool GroupModel::clearAllGroup(){
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("delete from `group` ") ))
+        return false;
+    groups.clear();
+    return true;
+}
+
 int GroupModel::size() const
 { return groups.size();}
 

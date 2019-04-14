@@ -44,18 +44,32 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 private slots:
-    void on_pushButtonAddGroup_clicked();
+
     bool addGroup_secondStep_choosePc();
     bool backTo_firstStep_chooseStaff();
     bool shutDown_firstStep();
-    void on_listWidgetStaff_customContextMenuRequested(const QPoint &pos);
-    void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
     void deleteCurrentGroupSlot();
+    void editCurrentGroupSlot();
+    void clearCurrentGroupSlot();
     void dealMsg();
     void showDetailPcInfo();
-    void showDetailGroupInfo();
+    void showDetailGroupInfoSlot();
+    void unavailable();
 
+    void on_pushButtonAddGroup_clicked();
     void on_listWidgetGroups_clicked(const QModelIndex &index);
+    void on_listWidgetStaff_customContextMenuRequested(const QPoint &pos);
+    void on_listWidgetGroups_customContextMenuRequested(const QPoint &pos);
+    void on_pushButton_clicked();
+    void on_toolButton_clicked();
+
+    void on_toolButtonPC_1_customContextMenuRequested(const QPoint &pos);
+
+    void on_toolButtonPC_2_customContextMenuRequested(const QPoint &pos);
+
+    void on_toolButtonPC_3_customContextMenuRequested(const QPoint &pos);
+
+    void on_toolButtonPC_4_customContextMenuRequested(const QPoint &pos);
 
 private:
     Ui::MainWindow *ui;//Qt设计师
