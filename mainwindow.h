@@ -34,7 +34,8 @@ public:
     bool updateGroupBoxView();//更新分组管理视图
     bool updatePcBoxView();//更新台位视图
     bool updateStaffBoxView();//更新人员表视图
-    bool updatePcInfo();
+    bool updatePcHalfInfo();
+    bool updatePcAnotherHalfInfo();
     bool updateDetailGroupInfo();
     void screen_full();
     void screen_normal();

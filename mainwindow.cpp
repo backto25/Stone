@@ -49,6 +49,7 @@ bool MainWindow::updateView()
     this->updateGroupBoxView();
     this->updatePcBoxView();
     this->updateStaffBoxView();
+    this->updatePcAnotherHalfInfo();
 }
 bool MainWindow::updateGroupBoxView()
 {
@@ -131,7 +132,8 @@ bool MainWindow::updateStaffBoxView(){
     }
     return true;
 }
-bool MainWindow::updatePcInfo(){
+bool MainWindow::updatePcHalfInfo(){
+
 
     char buf[32] = {0};
     QHostAddress cliAddr; //对方地址
@@ -154,16 +156,57 @@ bool MainWindow::updatePcInfo(){
         }
     }
 }
+bool MainWindow::updatePcAnotherHalfInfo(){
+    GroupModel &groupModel = contentProvider->group_model;
+    StaffModel &staffModel =contentProvider->staff_model;
+
+    for(int i = 0; i < pcList->size(); ++i){
+        if(ui->label_taiwei->text() == QString("台位%1").arg(i+1)){
+            int groupId = groupModel.whichGroupIsComputerIncluded(i+1);
+            if(groupId != 0){
+                QString groupName = groupModel.getGroupById(groupId).group_name;
+                ui->label_xiaozu->setText(groupName);
+                int insideIndex = groupModel.getGroupById(groupId).computerIndexInsideGroup(i+1);
+                int staffId = groupModel.getGroupById(groupId).staffs[insideIndex];
+                int staffIndex = staffModel.findIndexById(staffId);
+                ui->label_renyuan->setText(staffModel.getStaffByIndex(staffIndex).staff_name);
+            }
+            else{
+                ui->label_xiaozu->setText("未分组");
+                ui->label_renyuan->setText("暂无人员");
+            }
+        }
+    }
+}
 bool MainWindow::updateDetailGroupInfo(){
     QListWidgetItem * item = ui->listWidgetGroups->currentItem();
-    if( item == NULL )
+    qDebug()<<ui->listWidgetGroups->row(item);
+    qDebug()<<item;
+    if( item == NULL ){
+        ui->label_zuhao->setText("No relevant information");
+        ui->label_zuming->setText("No relevant information");
+        ui->label_zuse->setText("No relevant information");
+        ui->label_zuse->setStyleSheet("background-color: rgba(255, 255, 0, 0);");
+        ui->tableWidget->setRowCount(0);
         return false;
+    }
     GroupModel &groupModel = contentProvider->group_model;
+    StaffModel &staffModel =contentProvider->staff_model;
     int curIndex = ui->listWidgetGroups->row(item);
     ui->label_zuhao->setText(QString("%1").arg(curIndex + 1));
     ui->label_zuming->setText(groupModel.getGroupByIndex(curIndex).group_name);
     ui->label_zuse->setText("                      ");
     ui->label_zuse->setStyleSheet(ColorSetA[groupModel.getGroupByIndex(curIndex).group_id%5]);
+    ui->tableWidget->setRowCount( groupModel.getGroupByIndex(curIndex).staffs.size());
+    for(int i =0; i < groupModel.getGroupByIndex(curIndex).staffs.size(); ++i){
+        int staffId = groupModel.getGroupByIndex(curIndex).staffs[i];
+        QString staffName = staffModel.getStaffByIndex(staffModel.findIndexById(staffId)).staff_name;
+        qDebug()<<staffName;
+        QTableWidgetItem * sItem = new QTableWidgetItem();
+        sItem->setText(staffName);
+//        sItem->setFlags(Qt::NoItemFlags)
+        ui->tableWidget->setItem(i, 0, sItem);
+    }
 }
 void MainWindow::screen_full(){
     this->showFullScreen();
@@ -311,32 +354,20 @@ void MainWindow::deleteCurrentGroupSlot()
                                          );
         }
         this->updateView();
+        this->updateDetailGroupInfo();
     }
     else
         QMessageBox::about(NULL, "提示", "删除失败");
 }
 void MainWindow::dealMsg(){
-    this->updatePcInfo();
+    this->updatePcHalfInfo();
 }
 void MainWindow::showDetailPcInfo(){
     QToolButton *btn  = qobject_cast<QToolButton*>(sender());
-    GroupModel &groupModel = contentProvider->group_model;
-    StaffModel &staffModel =contentProvider->staff_model;
-
     for(int i =0; i < pcList->size(); ++i){
         if(QString("toolButtonPC_%1").arg(i+1) == btn->objectName()){
             ui->label_taiwei->setText(QString("台位%1").arg(i+1));
-            int groupId = groupModel.whichGroupIsComputerIncluded(i+1);
-            if(groupId != 0){
-                QString groupName = groupModel.getGroupById(groupId).group_name;
-                ui->label_xiaozu->setText(groupName);
-                int insideIndex = groupModel.getGroupById(groupId).computerIndexInsideGroup(i+1);
-                int staffId = groupModel.getGroupById(groupId).staffs[insideIndex];
-                int staffIndex = staffModel.findIndexById(staffId);
-                ui->label_renyuan->setText(staffModel.getStaffByIndex(staffIndex).staff_name);
-            }
-            else
-                ui->label_xiaozu->setText("未分组");
+            this->updatePcAnotherHalfInfo();
         }
     }
     ui->progressBar_mem->setValue(0);

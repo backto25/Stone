@@ -17,6 +17,9 @@
    <string>x组</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0" colspan="3">
+    <widget class="QLineEdit" name="lineEditInputGroupName"/>
+   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
@@ -24,18 +27,25 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="3">
-    <widget class="QLineEdit" name="lineEditInputGroupName"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
+   <item row="5" column="1">
+    <widget class="QPushButton" name="pushButtonCancel">
      <property name="text">
-      <string>请选择成员:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>取消</string>
      </property>
     </widget>
+   </item>
+   <item row="5" column="2">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item row="3" column="0" colspan="3">
     <widget class="QListWidget" name="listWidgetStaffs">
@@ -53,32 +63,29 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>请选择成员:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
     <widget class="QPushButton" name="pushButtonOK">
      <property name="text">
       <string>下一步</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QPushButton" name="pushButtonCancel">
+   <item row="4" column="0" colspan="3">
+    <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>取消</string>
+      <string>组内序号将按选择顺序排序！</string>
      </property>
     </widget>
-   </item>
-   <item row="4" column="2">
-    <spacer name="horizontalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>0</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

@@ -601,7 +601,7 @@
        <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>租号：</string>
+          <string>组号：</string>
          </property>
         </widget>
        </item>
