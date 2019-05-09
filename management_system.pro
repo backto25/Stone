@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     GroupModel.cpp \
     ComputerModel.cpp \
     ContentProvider.cpp \
-    newgroupsecondstep.cpp
+    newgroupsecondstep.cpp \
+    logindialog.cpp
 
 HEADERS  += mainwindow.h \
     newgroup.h \
@@ -27,11 +28,13 @@ HEADERS  += mainwindow.h \
     StaffModel.h \
     GroupModel.h \
     ComputerModel.h \
-    newgroupsecondstep.h
+    newgroupsecondstep.h \
+    logindialog.h
 
 FORMS    += mainwindow.ui \
     newgroup.ui \
-    newgroupsecondstep.ui
+    newgroupsecondstep.ui \
+    logindialog.ui
 
 RESOURCES += \
     resource/resource.qrc

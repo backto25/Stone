@@ -11,7 +11,7 @@
 #include <QKeyEvent>
 #include <QUdpSocket>
 
-
+#include "logindialog.h"
 #include "newgroup.h"
 #include "newgroupsecondstep.h"
 /*  *****************************************************
@@ -73,6 +73,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;//Qt设计师
+    LoginDialog *loginDialog;//登陆窗口
     NewGroup *newGroupFirstStep;//新建分组窗口第一步
     NewGroupSecondStep *newGroupSecondStep;//新建分组窗口第二步
     QList<QToolButton*> *pcList;//保存ui上的电脑实体，方便管理

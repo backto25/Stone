@@ -5,14 +5,14 @@
 #include <QListWidgetItem>
 #include <QEvent>
 #include<QMessageBox>
-
+#include <QProgressBar>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    loginDialog = new LoginDialog();
     newGroupSecondStep = new NewGroupSecondStep();
     newGroupFirstStep = new NewGroup();
     pcList = new QList<QToolButton*>;
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 0; i <pcList->size(); ++i){
         connect(pcList->at(i), SIGNAL(clicked()), this, SLOT(showDetailPcInfo()));
     }
-
+    loginDialog->show();
 }
 
 
@@ -37,6 +37,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete pcList;
+    delete loginDialog;
     delete newGroupFirstStep;
     delete newGroupSecondStep;
 }
@@ -67,12 +68,18 @@ bool MainWindow::updateGroupBoxView()
         QHBoxLayout *layout = new QHBoxLayout(widgetGroup);
         QLabel *groupName = new QLabel();
         QPushButton *btnProgressOn = new QPushButton();
+        QPushButton *btnProgressOn_02 = new QPushButton();
+//        QProgressBar *progressBar = new QProgressBar();
+//        progressBar->setValue(80);
         btnProgressOn->setStyleSheet("background-color: rgba(235, 235, 235, 150);");
+        btnProgressOn_02->setStyleSheet("background-color: rgba(235, 235, 235, 150);");
         layout->addWidget(groupName);
         layout->addWidget(btnProgressOn);
+//        layout->addWidget(btnProgressOn_02);
         groupName->setText(groupModel.getGroupByIndex(i).group_name);
         groupName->setStyleSheet(ColorSetA[groupModel.getGroupByIndex(i).group_id%5]);
         btnProgressOn->setText(tr("开始训练"));
+        btnProgressOn_02->setText("终止");
         widgetGroup->setLayout(layout);
 
         //插入表项
@@ -119,7 +126,11 @@ bool MainWindow::updateStaffBoxView(){
         layout->addWidget(staffName);
         layout->addWidget(sex);
         staffName->setText(staffModel.getStaffByIndex(i).staff_name);
-        sex->setText(tr("性别"));
+        int sex_num = i%3;
+        if(sex_num == 1)
+            sex->setText(tr("女"));
+        else
+            sex->setText(tr("男"));
         widget->setLayout(layout);
 
         for(int j = 0; j < groupModel.size(); ++j){

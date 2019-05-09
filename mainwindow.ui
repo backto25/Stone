@@ -519,6 +519,14 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>系统选项</string>
+    </property>
+    <addaction name="actionActionA"/>
+    <addaction name="actionActionB"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -661,7 +669,7 @@
     </sizepolicy>
    </property>
    <property name="windowTitle">
-    <string>组基本信息</string>
+    <string>小组详情</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -1072,6 +1080,16 @@
     </layout>
    </widget>
   </widget>
+  <action name="actionActionA">
+   <property name="text">
+    <string>用户信息</string>
+   </property>
+  </action>
+  <action name="actionActionB">
+   <property name="text">
+    <string>帮助文档</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
